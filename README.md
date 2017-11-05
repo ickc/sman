@@ -1,5 +1,5 @@
 # Sman
-[![Build Status](https://travis-ci.org/tokozedg/sman.svg?branch=master)](https://travis-ci.org/tokozedg/sman)
+[![Build Status](https://travis-ci.org/ickc/sman.svg?branch=master)](https://travis-ci.org/ickc/sman)
 
 ***
 A command-line snippet manager in Go
@@ -9,24 +9,24 @@ A command-line snippet manager in Go
 ## Install
 
 ```shell
-bash -c "$(curl https://raw.githubusercontent.com/tokozedg/sman/master/install.sh)"
+bash -c "$(curl https://raw.githubusercontent.com/ickc/sman/master/install.sh)"
 ```
 
 ## Building
 
 * Build with Go
 ```bash
-go get -v github.com/tokozedg/sman
+go get -v github.com/ickc/sman
 ```
 
 * Add to your rc:
 ```bash
-[ -f $GOPATH/src/github.com/tokozedg/sman/sman.rc  ] && source $GOPATH/src/github.com/tokozedg/sman/sman.rc
+[ -f $GOPATH/src/github.com/ickc/sman/sman.rc  ] && source $GOPATH/src/github.com/ickc/sman/sman.rc
 ```
 
 * Optionally copy demo snippets dir or create yours:
 ```bash
-cp -r $GOPATH/src/github.com/tokozedg/sman/snippets ~/
+cp -r $GOPATH/src/github.com/ickc/sman/snippets ~/
 ```
 
 ## Snippets Examples
@@ -138,13 +138,13 @@ export SMAN_EXEC_CONFIRM=true
 Install vim plugin for better snippets colors:
 
 *  [Pathogen](https://github.com/tpope/vim-pathogen)
-  * `git clone https://github.com/tokozedg/vim-sman.git ~/.vim/bundle/vim-sman`
+  * `git clone https://github.com/ickc/vim-sman.git ~/.vim/bundle/vim-sman`
 *  [vim-plug](https://github.com/junegunn/vim-plug)
-  * `Plug 'tokozedg/vim-sman'`
+  * `Plug 'ickc/vim-sman'`
 *  [NeoBundle](https://github.com/Shougo/neobundle.vim)
-  * `NeoBundle 'tokozedg/vim-sman'`
+  * `NeoBundle 'ickc/vim-sman'`
 *  [Vundle](https://github.com/VundleVim/Vundle.vim)
-  * `Plugin 'tokozedg/vim-sman'`
+  * `Plugin 'ickc/vim-sman'`
 
 ## Contributing
 

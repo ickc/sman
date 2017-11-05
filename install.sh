@@ -7,7 +7,7 @@ version=0.1.0
 download() {
     if [ ! -d ~/.sman/ ]; then
         if command -v git > /dev/null; then
-            git clone https://github.com/tokozedg/sman.git ~/.sman/
+            git clone https://github.com/ickc/sman.git ~/.sman/
         else
             binary_error="git not found"
             return
@@ -15,7 +15,7 @@ download() {
     fi
     [ -d ~/.sman/bin ] || mkdir ~/.sman/bin;
     cd ~/.sman/bin
-    local url=https://github.com/tokozedg/sman/releases/download/$version/${1}.tgz
+    local url=https://github.com/ickc/sman/releases/download/$version/${1}.tgz
     if command -v curl > /dev/null; then
         curl -fL $url | tar -xz
     elif command -v wget > /dev/null; then
