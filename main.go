@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/tokozedg/sman/lib"
+	"github.com/ickc/sman/lib"
 )
 
 func main() {
