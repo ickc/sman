@@ -8,6 +8,10 @@ git:reset:upstream:
   do: exec
   desc: reset branch at origin from remote (e.g. origin is forked from an upstream remote)
   command: git fetch "<<remote>>" && git checkout "<<branch>>" && git reset --hard "<<remote>>/<<branch>>" && git push origin "<<branch>>" --force
+git:rm:branch:
+  do: exec
+  desc: remove a git branch both locally and remotely
+  command: git branch -D "<<branch>>" && git push origin :"<<branch>>"
 git:rm:tag:
   do: exec
   desc: remove a git tag both locally and remotely
