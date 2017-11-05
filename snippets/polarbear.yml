@@ -1,0 +1,16 @@
+ab:jobid:
+  do: exec
+  desc: Get job ID from the stdout outputs. Assume using process_field_whwp.py with file pattern 'job_*-stdout*'.
+  command: find . -iname 'job_*-stdout*' | sed -E 's/^\.\/job_([0-9]+)-stdout_.*$/\1/g' | sort -un
+sed:time:
+  do: exec
+  desc: Replace the time function from the output of process_field_whwp.py to use the time command with output.
+  command: sed -i 's/^time \(.\+\) -o \([^ ]\+\) /\/usr\/bin\/time -v -o \2\/time.txt \1 -o \2 /g' <<filename>>
+stat:sim:
+  do: exec
+  desc: Count the number of files with pattern sim(0-9){3}.hdf5.
+  command: for num in $(seq -w 000 <<nreal(007)>>); do filename="sim$num.hdf5"; printf "%s\t" "$filename"; find . -iname "$filename" | wc -l; done
+stat:coadd:
+  do: exec
+  desc: Count no. of coadded files.
+  command: find . -type d -name 'coadd' -exec find {} -name '*.hdf5' \; | wc -l

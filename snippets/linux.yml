@@ -1,0 +1,22 @@
+ls:mount:
+  do: exec
+  desc: List mount points
+  command: mount -l
+ls:id:
+  do: exec
+  command: ls -la /dev/disk/by-id/
+
+ls:group:
+  do: exec
+  desc: List group members.
+  command: 'getent group | cut -d: -f1'
+
+ip:
+  do: exec
+  desc: get current IP address
+  command: ip route get 8.8.8.8 | awk '{print $NF; exit}'
+
+lidswitch:ignore:
+  do: exec
+  desc: ignore lid-switch, e.g. on laptop.
+  command: sudo sh -c 'echo "HandleLidSwitch=ignore" >> /etc/systemd/logind.conf' && sudo service systemd-logind restart

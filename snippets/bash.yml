@@ -1,0 +1,123 @@
+# find
+fd:
+  do: exec
+  command: find . -iname '*.<<extension>>'
+fd:ext:
+  do: exec
+  command: find . -type f -not -path "*.git*" | awk -F'.' '{print $NF}' | sort | uniq -c | sort -g
+fd:x:
+  do: exec
+  command: find . -maxdepth 1 -perm -111 -type f
+fd:rm:
+  do: exec
+  desc: delete empty files or directories, while ignoring .git directory.
+  command: find \! -path '*/.git/*' -empty -delete
+# file indexing
+createdb:
+  do: exec
+  desc: create locate.db
+  command: slocate --database=~/.locate.db
+updatedb:
+  do: exec
+  desc: update locate.db
+  command: updatedb --require-visibility 0 -o ~/.locate.db
+# aux. files
+fd:conflict:
+  do: exec
+  desc: find Dropbox's conflicted copy.
+  command: find . \! -path '*/.dropbox.cache/*' -name '*conflicted copy*' <<options( ,-delete)>>
+fd:dss:
+  do: exec
+  desc: find mac's DS_Store files.
+  command: find . \( -name '._.DS_Store' -o -name '.DS_Store' \) <<options( ,-delete)>>
+fd:mac:dump:
+  do: exec
+  desc: find mac's auto-created files on external drives and delete them.
+  command: find . \( -name '.Trashes' -o -name '.fseventsd' -o -name '.Spotlight-V100' \) -exec sudo rm -rf {} +
+# search
+gp:
+  do: exec
+  command: grep -irHn --color=auto '<<pattern>>' ./
+fd:gp:
+  do: exec
+  command: find . -iname '*.<<extension>>' -exec grep -Hn --color=auto '<<pattern>>' {} \;
+# file stat
+fd:size:
+  do: exec
+  command: find . -type f -printf "%kKB %p\n" | sort -h
+du:
+  do: exec
+  command: du -h --max-depth=<<level>> . | sort -h
+# text processing
+fd:level:sed:
+  do: exec
+  command: find . -maxdepth <<level>> -mindepth <<level>> -iname "*.<<extension>>" -exec sed -i 's/<<from>>/<<to>>/g' {} \;
+fd:cat:
+  do: exec
+  desc: find files with extension in directories at a certain level and cat & sort together into a file with the same extension besides the directories.
+  command: find -mindepth <<level>> -maxdepth <<level>> -type d -exec bash -c 'find $0 -name "*.<<extension>>" | xargs cat | sort > $0.<<extension>>' {} \;
+sort:max:
+  do: exec
+  desc: ignore header and show maximum
+  command: tail -n +2 <<filename>> | sort -n | tail -n1
+gp:email:
+  do: exec
+  command: grep -EiEio '\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b' '<<filename>>'
+linefeed:
+  do: exec
+  desc: Convert carriage return (e.g. from Windows) to line feed
+  command: find . -iname '*.<<extension>>' -exec sed -i -e 's/\r\n/\n/g' -e 's/\r/\n/g' {} +
+tp:tag:
+  do: exec
+  desc: show all unique tags in TaskPaper format.
+  command: grep -o '@[^( ]\+' '<<filename#taskpaper file>>' | sort -u
+# file archive
+untar:
+  do: exec
+  command: tar -xvzf <<filename>>
+# ACLs
+ls:grp:
+  do: exec
+  desc: List users in a group name
+  command: lid -g <<group>>
+chgrp:
+  do: exec
+  desc: Change group and add sticky bit recursively
+  command: chgrp -R <<group name>> . && chmod -R g+s .
+permission:
+  do: exec
+  desc: recursively change ownership, add sticky bit, etc.
+  command: sudo chown -R <<user>> . && sudo chgrp -R <<group>> . && find . -type d -exec chmod 2750 {} + && find . -type f -exec chmod 640 {} +
+# File systems
+df:
+  do: exec
+  desc: List file system mount points
+  command: df -hT
+writetest:
+  do: exec
+  desc: perform write test at 1G/512. test1.img and test2.img will be written temporarily.
+  command: dd if=/dev/zero of=test1.img bs=1G count=1 oflag=dsync && dd if=/dev/zero of=test2.img bs=512 count=1000 oflag=dsync && rm test1.img test2.img
+# wget
+download:all:
+  do: exec
+  desc: download all from the URL using wget
+  command: wget -mke robots=off <<URL>>
+download:level:
+  do: exec
+  desc: download up to a certian level from the URL using wget
+  command: wget -r -l <<level>> --no-remove-listing -ke robots=off <<URL>>
+wget:untar:
+  do: exec
+  command: wget -O - <<URL>> | tar -xvzf -
+wget:unzip:
+  do: exec
+  desc: wget and unzip a zip file, on macOS only.
+  command: wget -qO- '<<filename>>' | bsdtar -xvf-
+# misc
+openconnect:
+  do: exec
+  command: sudo openconnect ucbvpn.berkeley.edu
+pkill:
+  do: exec
+  desc: kill all process of current user
+  command: pkill -u $USER

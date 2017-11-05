@@ -1,0 +1,18 @@
+git:author:
+  do: exec
+  command: git shortlog -s
+git:email:
+  do: exec
+  command: git log --all --format='%aN <%cE>' | sort -u
+git:reset:upstream:
+  do: exec
+  desc: reset branch at origin from remote (e.g. origin is forked from an upstream remote)
+  command: git fetch "<<remote>>" && git checkout "<<branch>>" && git reset --hard "<<remote>>/<<branch>>" && git push origin "<<branch>>" --force
+git:rm:tag:
+  do: exec
+  desc: remove a git tag both locally and remotely
+  command: git tag -d "<<tag>>" && git push origin :"<<tag>>"
+git:diff:
+  do: exec
+  desc: show diff. except deleted files
+  command: git diff --name-status --diff-filter=d <<from-branch>>..<<to-branch>>

@@ -1,0 +1,4 @@
+serve:
+  do: exec
+  desc: jekyll serve using bundle
+  command: <<ENV( ,JEKYLL_ENV=production)#Environment Variable>> bundle exec jekyll serve --profile --drafts --incremental

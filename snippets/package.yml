@@ -1,0 +1,53 @@
+pip:update:
+  do: exec
+  command: pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
+pip:install:
+  do: exec
+  desc: Always access PyPI with no-cache-dir. This may help if the cache got stuck.
+  command: pip install -U --no-cache-dir <<packages>>
+
+jupyter:ls:
+  do: exec
+  command: jupyter kernelspec list
+
+conda:ls:
+  do: exec
+  command: conda info --env
+conda:batch:
+  do: exec
+  desc: running a certain command across all conda env. excluding root
+  command: conda info --env | grep -v -E '#|root' - | cut -d' ' -f1 | xargs -i -n1 -P1 bash -c '. activate $0 && <<command>>' {}
+conda:batch:ch:
+  do: exec
+  desc: similar to conda:batch, but restricted to env. with <<channel>> in the name, and install packages from that channel
+  command: conda info --env | grep -v -E '#|root' - | grep <<channel(defaults,intel)>> - | cut -d' ' -f1 | xargs -i -n1 -P1 bash -c '. activate $0 && conda install -c <<channel>> <<packages>> -y' {}
+conda:batch:rm:
+  do: exec
+  desc: remove all conda environments
+  command: conda info --env | grep -v -E '#|root' - | cut -d' ' -f1 | xargs -i -n1 -P1 bash -c 'conda remove -n $0 --all -y' {}
+# macOS brew
+brew:update:
+  do: exec
+  command: brew update && brew update && brew upgrade && brew cleanup && brew doctor
+brew:ls:
+  do: exec
+  command: brew leaves
+brew:lsv:
+  do: exec
+  command: brew ls --versions $(brew leaves)
+brew:cleanup:
+  do: exec
+  desc: force cleanup and clear cache
+  command: brew cleanup --force -s && rm -rf $(brew --cache)
+# linux apt
+apt:update:
+  do: exec
+  command: sudo apt-get -y update && sudo apt -y full-upgrade
+apt:ls:
+  do: exec
+  desc: list installed apt packages
+  command: |
+    (zcat $(ls -tr /var/log/apt/history.log*.gz); cat /var/log/apt/history.log) 2> /dev/null |
+    egrep '^(Start-Date:|Commandline:)' |
+    grep -v aptdaemon |
+    egrep '^Commandline:'

@@ -1,0 +1,6 @@
+rmh5:
+  do: exec
+  command: find . -iname '*.hdf5' -exec h5delete.py {} +
+rmh5path:
+  do: exec
+  command: find . -path '<<path(*/coadd/*)>>' -iname '*.hdf5' -exec h5delete.py {} +

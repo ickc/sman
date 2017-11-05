@@ -1,0 +1,70 @@
+ssh:ed:
+  do: exec
+  command: ssh khcheung@edison.nersc.gov
+ssh:co:
+  do: exec
+  command: ssh khcheung@cori.nersc.gov
+ssh:go:
+  do: exec
+  command: ssh khcheung@gordita.physics.berkeley.edu
+ssh:to:
+  do: exec
+  desc: ssh to Tostada, assume on Gordita.
+  command: ssh 192.168.1.80
+ssh:sp:
+  do: exec
+  desc: ssh to Stampede from XSEDE
+  command: ssh tg839817@stampede.tacc.xsede.org
+ssh:xd:
+  do: exec
+  command: ssh -l khcheung login.xsede.org
+gsisp:
+  do: exec
+  command: gsissh stampede
+
+tunnel:co:
+  do: exec
+  desc: tunnel a port from Cori to local. 8989 is Juptyer's default. 8080 might be that from snakeviz.
+  command: ssh -N -L localhost:<<port(8080,8989)>>:localhost:<<port>> khcheung@cori.nersc.gov
+tunnel:go:
+  do: exec
+  desc: tunnel a port from Gordita to local. 8989 is Juptyer's default. 8080 might be that from snakeviz.
+  command: ssh -N -L localhost:<<port(8080,8989)>>:localhost:<<port>> khcheung@gordita.physics.berkeley.edu
+
+rsync:to:co:
+  do: exec
+  command: rsync -avmz --delete --stats -e ssh --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore <<inDir>> khcheung@cori.nersc.gov:<<outDir>>
+rsync:fm:co:
+  do: exec
+  command: rsync -avmz --delete --stats -e ssh --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore khcheung@cori.nersc.gov:<<inDir>> <<outDir>>
+
+rsync:to:go:
+  do: exec
+  command: rsync -avmz --delete --stats -e ssh --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore <<inDir>> khcheung@gordita.physics.berkeley.edu:<<outDir>>
+rsync:fm:go:
+  do: exec
+  command: rsync -avmz --delete --stats -e ssh --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore khcheung@gordita.physics.berkeley.edu:<<inDir>> <<outDir>>
+
+sshfs:co:
+  do: exec
+  command: sudo sshfs -o IdentityFile=~/.ssh/id_rsa,allow_other,defer_permissions,volname=cori khcheung@cori.nersc.gov:/ /mnt/cori/
+sshfs:ed:
+  do: exec
+  command: sudo sshfs -o IdentityFile=~/.ssh/id_rsa,allow_other,defer_permissions,volname=edison khcheung@edison.nersc.gov:/ /mnt/edison/
+sshfs:go:
+  do: exec
+  command: sudo sshfs -o IdentityFile=~/.ssh/id_rsa,allow_other,defer_permissions,volname=gordita khcheung@gordita.physics.berkeley.edu:/ /mnt/gordita/
+
+sshfs:mkdir:
+  do: exec
+  command: sudo mkdir -p /mnt/<<host(cori,edison,gordita)>>/
+sshfs:umount:
+  do: exec
+  command: sudo umount -f /mnt/<<host(cori,edison,gordita)>>/
+sshfs:kill:
+  do: exec
+  command: sudo pkill -9 sshfs
+sshfs:pgrep:
+  do: exec
+  desc: show running sshfs processes.
+  command: pgrep -lf sshfs

@@ -1,0 +1,33 @@
+module:gnu:
+  do: exec
+  command: module swap PrgEnv-intel PrgEnv-gnu
+module:intel:
+  do: exec
+  command: module swap PrgEnv-gnu PrgEnv-intel
+module:py2:
+  do: exec
+  command: module load python/2.7-anaconda-4.4
+module:py3:
+  do: exec
+  command: module load python/3.6-anaconda-4.4
+module:cuda:
+  do: exec
+  command: module load cuda
+
+watch:bigmem:
+  do: exec
+  command: watch squeue -M escori -p bigmem
+
+sqs:
+  do: exec
+  desc: simulate sqs command on NERSC
+  command: squeue -u $USER
+
+BB:salloc:
+  do: exec
+  desc: salloc with BB at pb1_lp2_high_0_2
+  command: salloc -N 1 -C haswell -p debug -t 00:30:00 --bbf="/global/cscratch1/sd/khcheung/POLARBEAR/ickc-logs/jobs/pb1_lp2_high_0_2/BB.conf"
+BB:cd:
+  do: exec
+  desc: cd to pb1_lp2_high_0_2 at BB (assume in compute node)
+  command: cd $DW_PERSISTENT_STRIPED_pb1_lp2_high_0_2

@@ -1,0 +1,29 @@
+c:style:
+  do: exec
+  command: find . \( -iname "*.c" -o -iname "*.cpp" -o -iname "*.h" -o -iname "*.cu" -o -iname "*.upc" \) -exec clang-format -i -style=WebKit {} \+
+
+python:snakeviz:
+  do: exec
+  command: BROWSER=echo snakeviz program.prof
+
+python:rm:weave:
+  do: exec
+  desc: remove scipy weave's cache
+  command: rm -rf ~/.cache/scipy/ ~/.cache/weave/
+
+jupyter:nb:
+  do: exec
+  command: jupyter notebook --no-browser --port=8989
+
+autopep8:
+  do: exec
+  command: autopep8 <<path>> --recursive --in-place --pep8-passes 2000 --verbose <<option( , --aggressive --aggressive)>>
+
+ipcluster:
+  do: exec
+  command: ipcluster start -n <<processes>> --engines=MPIEngineSetLauncher
+
+fd:import:
+  do: exec
+  desc: Find .py recursively, and attempt to get all the modules imported in them.
+  command: find . -iname '*.py' -exec grep -E --color=auto '^[ ]*(import|from) ' '{}' \; | sed -E -e 's/^[ ]*(import|from) ([^. ]+).*$/\2/g' | sort -u

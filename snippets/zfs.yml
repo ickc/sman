@@ -1,0 +1,42 @@
+zfs:all:
+  do: exec
+  desc: show all zfs info
+  command: |
+    sudo echo && printf '=%.0s' {1..80} && echo &&
+    sudo zpool status &&
+    echo && printf '=%.0s' {1..80} && echo &&
+    sudo zpool iostat &&
+    echo && printf '=%.0s' {1..80} && echo &&
+    sudo zpool list &&
+    echo && printf '=%.0s' {1..80} && echo &&
+    sudo zfs list
+zfs:im:
+  do: exec
+  desc: import a ZFS pool.
+  command: |
+    if [[ $(uname) == Darwin ]]; then base=/var/run; else base=/dev; fi &&
+    sudo zpool import -f -d $base/disk/by-id <<name(RAIDZ2TB,RAIDZ4TB,RAIDZ9TB,RAIDZ12TB)>> && sudo zpool status
+zfs:ex:
+  do: exec
+  desc: export a ZFS pool.
+  command: sudo zpool export <<name(RAIDZ2TB,RAIDZ4TB,RAIDZ9TB,RAIDZ12TB)>> && sudo zpool status
+zfs:arc:
+  do: exec
+  desc: show arc. stats.
+  command: cat /proc/spl/kstat/zfs/arcstats
+zfs:ls:
+  do: exec
+  desc: list ZFS snapshots.
+  command: sudo zfs list -t snapshot
+zfs:ss:
+  do: exec
+  desc: create ZFS snapshots.
+  command: sudo zfs snapshot <<name>>
+zfs:show:compress:
+  do: exec
+  desc: get compression stats.
+  command: sudo zfs get compression -r
+zfs:sdrc:
+  do: exec
+  desc: ZFS send and receive. Double check how snapshot should be specified.
+  command: sudo zfs send <<input(RAIDZ2TB,RAIDZ4TB,RAIDZ9TB,RAIDZ12TB)>>/@<<snapshot>> | sudo zfs receive <<output(RAIDZ2TB,RAIDZ4TB,RAIDZ9TB,RAIDZ12TB)>>/
