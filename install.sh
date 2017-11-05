@@ -107,15 +107,7 @@ for shell in $shells; do
     [[ $shell = zsh ]] && dest=${ZDOTDIR:-~}/.zshrc || dest=~/.bashrc
     append_line $update_config "[[ -f ~/.sman/sman.rc ]] && source ~/.sman/sman.rc" "$dest" "~/.sman/sman.rc"
     append_line $update_config 'export PATH=$PATH:~/.sman/bin' "$dest" '$PATH:~/.sman/bin'
+    append_line $update_config 'export SMAN_SNIPPET_DIR=~/.sman/snippets' "$dest" "~/.sman/snippets"
 done
-
-# Snippets from repo
-if [[ ! -f ~/snippets/ ]]; then
-    echo
-    ask "Copy snippets from repo to home?"
-    if [[ $? -eq 1 ]]; then
-        cp -r ~/.sman/snippets ~
-    fi
-fi
 
 echo "Done. Logout or reload your rc"
