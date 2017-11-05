@@ -1,5 +1,0 @@
----
-index:delete:
-  do: exec
-  desc: delete index on elasticsearch
-  command: curl -XDELETE 'http://<<host(localhost:9200)>>/<<index>>/'

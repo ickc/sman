@@ -1,6 +1,0 @@
----
-vm:start:
-  do: exec
-  desc: start virtualbox machine
-  command: VBoxManage startvm '<<machine>>' --type headless
-
