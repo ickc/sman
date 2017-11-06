@@ -74,7 +74,7 @@ tp:tag:
 # file archive
 untar:
   do: exec
-  command: tar -xvzf <<filename>>
+  command: tar -xzf <<filename>>
 # ACLs
 ls:grp:
   do: exec
@@ -108,11 +108,11 @@ download:level:
   command: wget -r -l <<level>> --no-remove-listing -ke robots=off <<URL>>
 wget:untar:
   do: exec
-  command: wget -O - <<URL>> | tar -xvzf -
+  command: wget -qO- '<<URL>>' | tar -xzf -
 wget:unzip:
   do: exec
   desc: wget and unzip a zip file, on macOS only.
-  command: wget -qO- '<<filename>>' | bsdtar -xvf-
+  command: wget -qO- '<<URL>>' | bsdtar -xf-
 # misc
 openconnect:
   do: exec
