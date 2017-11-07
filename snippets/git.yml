@@ -1,22 +1,36 @@
-git:author:
+# show info
+git:log:author:
   do: exec
   command: git shortlog -s
-git:email:
+git:log:email:
   do: exec
   command: git log --all --format='%aN <%cE>' | sort -u
-git:reset:upstream:
-  do: exec
-  desc: reset branch at origin from remote (e.g. origin is forked from an upstream remote)
-  command: git fetch "<<remote>>" && git checkout "<<branch>>" && git reset --hard "<<remote>>/<<branch>>" && git push origin "<<branch>>" --force
-git:rm:branch:
-  do: exec
-  desc: remove a git branch both locally and remotely
-  command: git branch -D "<<branch>>" && git push origin :"<<branch>>"
-git:rm:tag:
-  do: exec
-  desc: remove a git tag both locally and remotely
-  command: git tag -d "<<tag>>" && git push origin :"<<tag>>"
 git:diff:
   do: exec
   desc: show diff. except deleted files
   command: git diff --name-status --diff-filter=d <<from-branch>>..<<to-branch>>
+# routines
+git:remote:add:
+  do: exec
+  command: git remote add <<remote>> <<URL>>
+git:submodule:update:
+  do: exec
+  desc: update submodules recursively
+  command: git submodule update --recursive --remote
+# overriding / deleting
+git:reset:remote:
+  do: exec
+  desc: override local branch from remote
+  command: git fetch <<remote>> && git reset --hard <<remote>>/<<branch>>
+git:reset:upstream:
+  do: exec
+  desc: reset branch at origin from remote (e.g. origin is forked from an upstream remote)
+  command: git fetch <<remote>> && git checkout <<branch>> && git reset --hard <<remote>>/<<branch>> && git push origin <<branch>> --force
+git:rm:branch:
+  do: exec
+  desc: remove a git branch both locally and remotely
+  command: git branch -D <<branch>> && git push origin :<<branch>>
+git:rm:tag:
+  do: exec
+  desc: remove a git tag both locally and remotely
+  command: git tag -d <<tag>> && git push origin :<<tag>>
