@@ -1,20 +1,21 @@
+# -R 52698:localhost:52698 is for rmate
 ssh:ed:
   do: exec
-  command: ssh khcheung@edison.nersc.gov
+  command: ssh -R 52698:localhost:52698 khcheung@edison.nersc.gov
 ssh:co:
   do: exec
-  command: ssh khcheung@cori.nersc.gov
+  command: ssh -R 52698:localhost:52698 khcheung@cori.nersc.gov
 ssh:go:
   do: exec
-  command: ssh khcheung@gordita.physics.berkeley.edu
+  command: ssh -R 52698:localhost:52698 khcheung@gordita.physics.berkeley.edu
 ssh:to:
   do: exec
   desc: ssh to Tostada, assume on Gordita.
-  command: ssh 192.168.1.80
+  command: ssh -R 52698:localhost:52698 192.168.1.80
 ssh:sp:
   do: exec
   desc: ssh to Stampede from XSEDE
-  command: ssh tg839817@stampede.tacc.xsede.org
+  command: ssh -R 52698:localhost:52698 tg839817@stampede.tacc.xsede.org
 ssh:xd:
   do: exec
   command: ssh -l khcheung login.xsede.org
