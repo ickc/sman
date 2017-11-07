@@ -1,4 +1,4 @@
 install:rmate:
   do: exec
   desc: install bash version of rmate
-  command: wget -O $HOME/.local/bin/rmate https://raw.github.com/aurora/rmate/master/rmate
+  command: wget -O $HOME/.local/bin/rmate https://raw.github.com/aurora/rmate/master/rmate && chmod +x $HOME/.local/bin/rmate
