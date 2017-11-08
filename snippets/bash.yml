@@ -121,3 +121,7 @@ pkill:
   do: exec
   desc: kill all process of current user
   command: pkill -u $USER
+smb:
+  do: exec
+  desc: connect to samda on router
+  command: sudo mount -t cifs -o username=admin //192.168.1.1/Seagate_Backup_SGC42 /media/kolen/dir-860l
