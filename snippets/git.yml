@@ -34,3 +34,7 @@ git:rm:tag:
   do: exec
   desc: remove a git tag both locally and remotely
   command: git tag -d <<tag>> && git push origin :<<tag>>
+git:cp:
+  do: exec
+  desc: git cherry-pick a range
+  command: git cherry-pick <<from>>^..<<to>>
