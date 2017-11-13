@@ -14,3 +14,11 @@ stat:coadd:
   do: exec
   desc: Count no. of coadded files.
   command: find . -type d -name 'coadd' -exec find {} -name '*.hdf5' \; | wc -l
+rm:hdf5:
+  do: exec
+  desc: delete corrupted hdf5 files
+  command: find . -name '*.hdf5' -exec h5delete.py -p 64 {} +
+rm:coadd:
+  do: exec
+  desc: delete corrupted hdf5 files under coadd
+  command: find . -path '*/coadd/*' -name '*.hdf5' -exec h5delete.py -p 64 {} +
