@@ -40,7 +40,11 @@ gp:
   command: grep -irHn --color=auto '<<pattern>>' ./
 fd:gp:
   do: exec
-  command: find . -iname '*.<<extension>>' -exec grep -Hn --color=auto '<<pattern>>' {} \;
+  command: find . -iname '*.<<extension>>' -exec grep -Hn --color=auto '<<pattern>>' {} +
+fd:gp:time:ram:
+  do: exec
+  desc: assume <<pattern>> finds output of GNU time, get the row of max. mem. use, cut and sort by the numbers.
+  command: find <<pattern>> -exec grep -h --color=auto 'Maximum resident set size' {} + | cut -d' ' -f 6 | sort -n
 # file stat
 fd:size:
   do: exec
