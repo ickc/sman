@@ -1,3 +1,4 @@
+# precoess_field_whwp.py related
 ab:jobid:
   do: exec
   desc: Get job ID from the stdout outputs. Assume using process_field_whwp.py with file pattern 'job_*-stdout*'.
@@ -6,19 +7,29 @@ sed:time:
   do: exec
   desc: Replace the time function from the output of process_field_whwp.py to use the time command with output.
   command: sed -i 's/^time \(.\+\) -o \([^ ]\+\) /\/usr\/bin\/time -v -o \2\/time.txt \1 -o \2 /g' <<filename>>
-stat:sim:
+# mapmaking
+map:stat:real:
+  do: exec
+  desc: Count the number of files with name realmap.hdf5.
+  command: find . -iname 'realmap.hdf5' | wc -l
+map:stat:sim:
   do: exec
   desc: Count the number of files with pattern sim(0-9){3}.hdf5.
   command: for num in $(seq -w 000 <<nreal(007)>>); do filename="sim$num.hdf5"; printf "%s\t" "$filename"; find . -iname "$filename" | wc -l; done
-stat:coadd:
-  do: exec
-  desc: Count no. of coadded files.
-  command: find . -type d -name 'coadd' -exec find {} -name '*.hdf5' \; | wc -l
 rm:hdf5:
   do: exec
   desc: delete corrupted hdf5 files
   command: find . -name '*.hdf5' -exec h5delete.py -p 64 {} +
-rm:coadd:
+# coadd
+coadd:stat:
+  do: exec
+  desc: Count no. of coadded files.
+  command: find . -path '*/coadd/*' -name '*.hdf5' | wc -l
+coadd:stat:obs:
+  do: exec
+  desc: Count no. of coadded observations
+  command: find -path '*/coadd/*' -name '*.hdf5' -exec dirname {} + | sort -u | wc -l
+coadd:rm:hdf5:
   do: exec
   desc: delete corrupted hdf5 files under coadd
   command: find . -path '*/coadd/*' -name '*.hdf5' -exec h5delete.py -p 64 {} +
