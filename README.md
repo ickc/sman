@@ -79,7 +79,7 @@ curl:upload:
 ### Run snippet
 
 ```bash
-s run [-f <FILE>]  [-t <TAG>] <SNIPPET> [placeholder values...] [-cxp]
+s run [-f <FILE>]  [-t <TAG>] <SNIPPET> [placeholder values...] [-cxyp]
 ```
 ```bash
 ~|⇒ s run -f shell curl:upload test.tar.gz -x
@@ -131,6 +131,8 @@ export SMAN_APPEND_HISTORY=false
 export SMAN_SNIPPET_DIR="~/snippets"
 # Ask confirmation before executing
 export SMAN_EXEC_CONFIRM=true
+# Set shell color of groups in ls, see https://misc.flogisoft.com/bash/tip_colors_and_formatting
+export SMAN_LS_COLOR_FILES=1,4,35
 ```
 
 ## vim-sman
