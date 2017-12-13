@@ -43,8 +43,12 @@ fd:gp:
   command: find . -iname '*.<<extension>>' -exec grep -Hn --color=auto '<<pattern>>' {} +
 fd:gp:time:ram:
   do: exec
-  desc: assume <<pattern>> finds output of GNU time, get the row of max. mem. use, cut and sort by the numbers.
-  command: find <<pattern>> -exec grep -h --color=auto 'Maximum resident set size' {} + | cut -d' ' -f 6 | sort -n
+  desc: assume <<pattern>> finds output of GNU time, get the row of max. mem. used, cut and sort by the numbers.
+  command: find -name <<pattern>> -exec grep -h --color=auto 'Maximum resident set size' {} + | cut -d' ' -f 6 | sort -n
+fd:gp:time:
+  do: exec
+  desc: assume <<pattern>> finds output of GNU time, get the row of time used, cut and sort by the time.
+  command: find -name <<pattern>> -exec grep -h --color=auto 'Elapsed (wall clock) time' {} + | cut -d' ' -f 8 | sort -V
 # file stat
 fd:size:
   do: exec
