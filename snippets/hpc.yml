@@ -31,3 +31,8 @@ BB:cd:
   do: exec
   desc: cd to pb1_lp2_high_0_2 at BB (assume in compute node)
   command: cd $DW_PERSISTENT_STRIPED_pb1_lp2_high_0_2
+
+sbatch:
+  do: exec
+  desc: sbatch in parallel
+  command: find -name '*.sh' | sort | xargs -i -n1 -P30 bash -c 'sbatch $0; sleep 5' {}
