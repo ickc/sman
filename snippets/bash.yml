@@ -34,6 +34,10 @@ fd:mac:dump:
   do: exec
   desc: find mac's auto-created files on external drives and delete them.
   command: find . \( -name '.Trashes' -o -name '.fseventsd' -o -name '.Spotlight-V100' \) -exec sudo rm -rf {} +
+fd:ncol:
+  do: exec
+  desc: find number of columns for files with given pattern.
+  command: find -name '<<pattern>>' -exec awk '{print NF}' {} + | sort -nu
 # search
 gp:
   do: exec
