@@ -137,3 +137,7 @@ smb:
   do: exec
   desc: connect to samda on router
   command: sudo mount -t cifs -o username=admin //192.168.1.1/Seagate_Backup_SGC42 /media/kolen/dir-860l
+ip:router:
+  do: exec
+  desc: show the IP address of router
+  command: netstat -nr | grep default
