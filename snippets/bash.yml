@@ -63,7 +63,7 @@ du:
 # text processing
 fd:level:sed:
   do: exec
-  command: find . -maxdepth <<level>> -mindepth <<level>> -iname "*.<<extension>>" -exec sed -i 's/<<from>>/<<to>>/g' {} \;
+  command: find . -maxdepth <<level>> -mindepth <<level>> -iname "*.<<extension>>" -exec sed -i 's/<<from>>/<<to>>/g' {} +
 fd:cat:
   do: exec
   desc: find files with extension in directories at a certain level and cat & sort together into a file with the same extension besides the directories.
