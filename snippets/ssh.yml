@@ -36,6 +36,12 @@ rsync:to:co:
 rsync:fm:co:
   do: exec
   command: rsync -avmz --delete --stats -e ssh --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore khcheung@cori.nersc.gov:<<inDir>> <<outDir>>
+rsync:to:ed:
+  do: exec
+  command: rsync -avmz --delete --stats -e ssh --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore <<inDir>> khcheung@edison.nersc.gov:<<outDir>>
+rsync:fm:ed:
+  do: exec
+  command: rsync -avmz --delete --stats -e ssh --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore khcheung@edison.nersc.gov:<<inDir>> <<outDir>>
 
 rsync:to:go:
   do: exec
