@@ -16,6 +16,11 @@ ip:
   desc: get current IP address
   command: ip route get 8.8.8.8 | awk '{print $NF; exit}'
 
+ip:mac:
+  do: exec
+  desc: get mac address
+  command: ip link show
+
 lidswitch:ignore:
   do: exec
   desc: ignore lid-switch, e.g. on laptop.
