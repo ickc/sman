@@ -27,6 +27,13 @@ ssh:tunnel:
   desc: tunnel a port from client to server (-R to reverse). 8989-Juptyer; 8080-snakeviz; 52698-rmate.
   command: ssh -N -<<direction(L,R)>> localhost:<<port(8080,8989,52698)>>:localhost:<<port>> <<URL(khcheung@cori.nersc.gov,khcheung@edison.nersc.gov,khcheung@gordita.physics.berkeley.edu)>>
 
+ssh:co:sqs:
+  do: exec
+  command: ssh khcheung@cori.nersc.gov sqs
+ssh:ed:sqs:
+  do: exec
+  command: ssh khcheung@edison.nersc.gov '/usr/common/software/python/3.6-anaconda-4.4/bin/python -E /usr/common/software/bin/sqs'
+
 rsync:
   do: exec
   command: rsync -avmz --delete --stats --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore <<inDir>> <<outDir>>
