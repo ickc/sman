@@ -142,7 +142,14 @@ ip:router:
   desc: show the IP address of router
   command: netstat -nr | grep default
 
+# disks
 badblocks:
   do: exec
   desc: check badblocks of a device. n for non-destructive read/write, w for write
   command: sudo badblocks -<<destructive(n,w)>>vsb 4096 /dev/<<disk>>
+info:smart:
+  do: exec
+  command: sudo smartctl -x /dev/<<disk>>
+info:hdparm:
+  do: exec
+  command: sudo hdparm -I /dev/<<disk>>
