@@ -141,6 +141,10 @@ ip:router:
   do: exec
   desc: show the IP address of router
   command: netstat -nr | grep default
+ip:local:
+  do: exec
+  desc: show local IP address
+  command: ifconfig |grep inet
 
 # disks
 badblocks:
