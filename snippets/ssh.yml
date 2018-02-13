@@ -24,8 +24,8 @@ gsisp:
 
 ssh:tunnel:
   do: exec
-  desc: tunnel a port from client to server (-R to reverse). 8989-Juptyer; 8080-snakeviz; 52698-rmate.
-  command: ssh -N -<<direction(L,R)>> localhost:<<port(8080,8989,52698)>>:localhost:<<port>> <<URL(khcheung@cori.nersc.gov,khcheung@edison.nersc.gov,khcheung@gordita.physics.berkeley.edu)>>
+  desc: tunnel a port from client to server (-R to reverse). 8080-snakeviz; 8989-Juptyer; 8096-emby; 52698-rmate.
+  command: ssh -N -<<direction(L,R)>> localhost:<<port(8080,8989,8096,52698)>>:localhost:<<port>> <<URL(khcheung@cori.nersc.gov,khcheung@edison.nersc.gov,khcheung@gordita.physics.berkeley.edu)>>
 
 ssh:co:sqs:
   do: exec
