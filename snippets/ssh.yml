@@ -22,6 +22,29 @@ gsisp:
   do: exec
   command: gsissh stampede
 
+# ssh/mosh for private ip
+lpc:
+  do: exec
+  desc: connect to lpc
+  command: <<command(ssh,mosh)>> kolen@<<host(128.32.117.115,172.22.2.7)>>
+3650:
+  do: exec
+  desc: connect to 3650
+  command: <<command(ssh,mosh)>> kolen@<<host(128.32.117.119,172.22.2.5)>>
+server:
+  do: exec
+  desc: connect to server
+  command: <<command(ssh,mosh)>> kolen@<<host(192.168.1.113,172.22.2.8)>>
+desktop:
+  do: exec
+  desc: connect to desktop
+  command: <<command(ssh,mosh)>> kolen@<<host(192.168.1.102,172.22.2.3)>>
+mbp:
+  do: exec
+  desc: connect to mbp
+  command: <<command(ssh,mosh)>> kolen@<<host(192.168.1.111,172.22.2.4)>>
+
+
 ssh:tunnel:
   do: exec
   desc: tunnel a port from client to server (-R to reverse). 8080-snakeviz; 8989-Juptyer; 8096-emby; 52698-rmate.
