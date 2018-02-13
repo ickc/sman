@@ -21,6 +21,11 @@ ip:mac:
   desc: get mac address
   command: ip link show
 
+ip:local:ss:
+  do: exec
+  desc: show local ip address using ss
+  command: ss -au
+
 lidswitch:ignore:
   do: exec
   desc: ignore lid-switch, e.g. on laptop.
