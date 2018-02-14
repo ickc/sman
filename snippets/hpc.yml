@@ -17,11 +17,10 @@ module:cuda:
 watch:bigmem:
   do: exec
   command: watch squeue -M escori -p bigmem
-
-sqs:
+watch:sqs:
   do: exec
-  desc: simulate sqs command on NERSC
-  command: squeue -u $USER
+  desc: watch sqs, and remove the last 8 lines of notes
+  command: watch 'sqs | head -n -8'
 
 BB:salloc:
   do: exec
