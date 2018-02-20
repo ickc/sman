@@ -8,7 +8,7 @@ git:log:email:
 git:diff:
   do: exec
   desc: show diff. except deleted files
-  command: git diff --name-status --diff-filter=d <<frombranch>>..<<tobranch>>
+  command: git diff --name-status --diff-filter=d <<tobranch>>..<<frombranch>>
 # routines
 git:remote:add:
   do: exec
