@@ -40,5 +40,5 @@ git:cp:
   command: git cherry-pick <<from>>^..<<to>>
 git:pull:
   do: exec
-  desc: recursively pull all repositories under current directory
-  command: find -type d -name '.git' -exec bash -c 'cd $0/.. && git pull' {} \;
+  desc: pull all repositories under current directory
+  command: find -maxdepth 1 -mindepth 1 -exec bash -c 'cd $0; git pull' {} \;
