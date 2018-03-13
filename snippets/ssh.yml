@@ -59,26 +59,33 @@ ssh:ed:sqs:
 
 rsync:
   do: exec
-  command: rsync -avmz --delete --stats --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore <<inDir>> <<outDir>>
+  command: rsync -avmz <<DELETE( ,--delete)>> --stats --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore <<inDir>> <<outDir>>
 rsync:to:co:
   do: exec
-  command: rsync -avmz --delete --stats -e ssh --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore <<inDir>> khcheung@cori.nersc.gov:<<outDir>>
+  command: rsync -avmz <<DELETE( ,--delete)>> --stats -e ssh --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore <<inDir>> khcheung@cori.nersc.gov:<<outDir>>
 rsync:fm:co:
   do: exec
-  command: rsync -avmz --delete --stats -e ssh --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore khcheung@cori.nersc.gov:<<inDir>> <<outDir>>
+  command: rsync -avmz <<DELETE( ,--delete)>> --stats -e ssh --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore khcheung@cori.nersc.gov:<<inDir>> <<outDir>>
 rsync:to:ed:
   do: exec
-  command: rsync -avmz --delete --stats -e ssh --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore <<inDir>> khcheung@edison.nersc.gov:<<outDir>>
+  command: rsync -avmz <<DELETE( ,--delete)>> --stats -e ssh --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore <<inDir>> khcheung@edison.nersc.gov:<<outDir>>
 rsync:fm:ed:
   do: exec
-  command: rsync -avmz --delete --stats -e ssh --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore khcheung@edison.nersc.gov:<<inDir>> <<outDir>>
+  command: rsync -avmz <<DELETE( ,--delete)>> --stats -e ssh --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore khcheung@edison.nersc.gov:<<inDir>> <<outDir>>
 
 rsync:to:go:
   do: exec
-  command: rsync -avmz --delete --stats -e ssh --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore <<inDir>> khcheung@gordita.physics.berkeley.edu:<<outDir>>
+  command: rsync -avmz <<DELETE( ,--delete)>> --stats -e ssh --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore <<inDir>> khcheung@gordita.physics.berkeley.edu:<<outDir>>
 rsync:fm:go:
   do: exec
-  command: rsync -avmz --delete --stats -e ssh --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore khcheung@gordita.physics.berkeley.edu:<<inDir>> <<outDir>>
+  command: rsync -avmz <<DELETE( ,--delete)>> --stats -e ssh --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore khcheung@gordita.physics.berkeley.edu:<<inDir>> <<outDir>>
+
+rsync:to:
+  do: exec
+  command: rsync -avmz <<DELETE( ,--delete)>> --stats -e ssh --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore <<inDir>> <<host>>:<<outDir>>
+rsync:fm:
+  do: exec
+  command: rsync -avmz <<DELETE( ,--delete)>> --stats -e ssh --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore <<host>>:<<inDir>> <<outDir>>
 
 sshfs:co:
   do: exec
