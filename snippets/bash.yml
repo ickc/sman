@@ -38,6 +38,9 @@ fd:ncol:
   do: exec
   desc: find number of columns for files with given pattern.
   command: find -name '<<pattern>>' -exec awk '{print NF}' {} + | sort -nu
+fd:cat:ext:
+  do: exec
+  command: find -name '*.<<extension>>' -exec cat {} +
 fd:less:ext:
   do: exec
   command: find -name '*.<<extension>>' -exec less {} +
