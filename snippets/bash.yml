@@ -105,7 +105,7 @@ chgrp:
 permission:
   do: exec
   desc: recursively change ownership, add sticky bit, etc.
-  command: sudo chown -R <<user>> . && sudo chgrp -R <<group>> . && find . -type d -exec chmod 2750 {} + && find . -type f -exec chmod 640 {} +
+  command: <<sudo( ,sudo)>> chown -R <<user>> . && <<sudo( ,sudo)>> chgrp -R <<group>> . && find . -type d -exec chmod 2750 {} + && find . -type f -exec chmod 640 {} +
 # File systems
 df:
   do: exec
