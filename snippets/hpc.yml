@@ -20,7 +20,7 @@ watch:bigmem:
 watch:sqs:
   do: exec
   desc: watch sqs, and remove the last 8 lines of notes
-  command: watch -n 15 'sqs | head -n -8'
+  command: watch -n 15 'sqs -c -m -x'
 
 BB:salloc:
   do: exec
