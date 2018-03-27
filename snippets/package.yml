@@ -42,7 +42,7 @@ brew:cleanup:
 # linux apt
 apt:update:
   do: exec
-  command: sudo apt-get -y update && sudo apt -y full-upgrade
+  command: sudo apt-get -y update && sudo apt -y full-upgrade && sudo apt-get -y autoremove
 apt:ls:
   do: exec
   desc: list installed apt packages
