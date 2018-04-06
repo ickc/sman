@@ -35,5 +35,5 @@ coadd:rm:hdf5:
   command: find . -path '*/coadd/*' -name '*.hdf5' -exec h5delete.py -p 64 {} +
 git:push:ab:
   do: exec
-  desc: push branch khcheung and cleanup to both bolo and github.
-  command: for branch in khcheung cleanup; do git checkout $branch && git push origin $branch && git push github $branch; done
+  desc: push branch cleanup and khcheung to both bolo and github.
+  command: for branch in cleanup khcheung; do git checkout $branch && git push origin $branch && git push github $branch; done
