@@ -110,3 +110,8 @@ sshfs:pgrep:
   do: exec
   desc: show running sshfs processes.
   command: pgrep -lf sshfs
+
+ssh:key:
+  do: exec
+  desc: transfer ssh public key from local to remote
+  command: cat ~/.ssh/id_rsa.pub | ssh <<user(kolen,khcheung)>>@<<host>> 'cat >> .ssh/authorized_keys'
