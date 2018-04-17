@@ -25,6 +25,12 @@ conda:batch:rm:
   do: exec
   desc: remove all conda environments
   command: conda info --env | grep -v -E '#|root' - | cut -d' ' -f1 | xargs -i -n1 -P1 bash -c 'conda remove -n $0 --all -y' {}
+
+pip:dev:
+  do: exec
+  desc: pip install current directory in editable mode
+  command: pip install -e .
+
 # macOS brew
 brew:update:
   do: exec
