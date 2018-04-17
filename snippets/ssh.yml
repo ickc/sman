@@ -43,6 +43,10 @@ mbp:
   do: exec
   desc: connect to mbp
   command: <<command(ssh,mosh)>> kolen@<<host(192.168.1.111,172.22.2.4)>>
+ucbcmb:
+  do: exec
+  desc: connect to ucbcmb
+  command: ssh ucbcmb@128.32.124.215
 
 
 ssh:tunnel:
