@@ -30,3 +30,8 @@ lidswitch:ignore:
   do: exec
   desc: ignore lid-switch, e.g. on laptop.
   command: sudo sh -c 'echo "HandleLidSwitch=ignore" >> /etc/systemd/logind.conf' && sudo service systemd-logind restart
+
+netctl:start:
+  do: exec
+  desc: start a WiFi profile
+  command: sudo netctl start <<profile(wlp1s0-rt)>>
