@@ -7,6 +7,10 @@ pm:upgrade:
   do: exec
   desc: pacman upgrade all
   command: sudo pacman -Syu
+pm:rm:
+  do: exec
+  desc: remove a package using pacman
+  command: sudo pacman -Rs <<package>>
 
 aur:install:
   do: exec
