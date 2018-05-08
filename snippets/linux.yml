@@ -35,3 +35,8 @@ netctl:start:
   do: exec
   desc: start a WiFi profile
   command: sudo netctl start <<profile(wlp1s0-rt)>>
+
+timedatectl:status:
+  do: exec
+  desc: check time synchronization status
+  command: timedatectl status
