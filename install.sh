@@ -13,8 +13,8 @@ download(){
             return
         fi
     fi
-    [[ -d ~/.sman/bin ]] || mkdir ~/.sman/bin
-    cd ~/.sman/bin
+    [[ -d ~/.local/bin ]] || mkdir ~/.local/bin
+    cd ~/.local/bin
     local url=https://github.com/tokozedg/sman/releases/download/$version/${1}.tgz
     echo $url
     if command -v curl > /dev/null; then
@@ -107,7 +107,6 @@ shells=$([[ $has_zsh -eq 1 ]] && echo "bash zsh" || echo "bash")
 for shell in $shells; do
     [[ $shell = zsh ]] && dest=${ZDOTDIR:-~}/.zshrc || dest=~/.bashrc
     append_line $update_config "[[ -f ~/.sman/sman.rc ]] && source ~/.sman/sman.rc" "$dest" "~/.sman/sman.rc"
-    append_line $update_config 'export PATH=$PATH:~/.sman/bin' "$dest" '$PATH:~/.sman/bin'
     append_line $update_config 'export SMAN_SNIPPET_DIR=~/.sman/snippets' "$dest" "~/.sman/snippets"
 done
 
