@@ -57,3 +57,9 @@ apt:ls:
     egrep '^(Start-Date:|Commandline:)' |
     grep -v aptdaemon |
     egrep '^Commandline:'
+
+# go
+go:update:
+  do: exec
+  desc: update all go packages
+  command: go get -u all
