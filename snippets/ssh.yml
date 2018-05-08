@@ -100,13 +100,16 @@ sshfs:ed:
 sshfs:go:
   do: exec
   command: sudo sshfs -o IdentityFile=~/.ssh/id_rsa,allow_other,defer_permissions,volname=gordita khcheung@gordita.physics.berkeley.edu:/ /mnt/gordita/
+sshfs:lpc:
+  do: exec
+  command: sudo sshfs -o IdentityFile=~/.ssh/id_rsa,allow_other,defer_permissions,volname=lpc kolen@172.22.2.7:/ /mnt/lpc/
 
 sshfs:mkdir:
   do: exec
-  command: sudo mkdir -p /mnt/<<host(cori,edison,gordita)>>/
+  command: sudo mkdir -p /mnt/<<host(cori,edison,gordita,lpc)>>/
 sshfs:umount:
   do: exec
-  command: sudo umount -f /mnt/<<host(cori,edison,gordita)>>/
+  command: sudo umount -f /mnt/<<host(cori,edison,gordita,lpc)>>/
 sshfs:kill:
   do: exec
   command: sudo pkill -9 sshfs
@@ -119,3 +122,13 @@ ssh:key:
   do: exec
   desc: transfer ssh public key from local to remote
   command: cat ~/.ssh/id_rsa.pub | ssh <<user(kolen,khcheung)>>@<<host>> 'cat >> .ssh/authorized_keys'
+
+# mount lpc
+lpc:git:nfs:
+  do: exec
+  desc: mount NFS
+  command: sudo mkdir -p /Volumes/git && sudo mount 128.32.117.118:/home/kolen/git /Volumes/git
+lpc:raid:nfs:
+  do: exec
+  desc: mount NFS
+  command: sudo mkdir -p /Volumes/raid24 && sudo mount 128.32.117.118:/mnt/raid24 /Volumes/raid24
