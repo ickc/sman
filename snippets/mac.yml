@@ -1,0 +1,4 @@
+logifix:
+  do: exec
+  desc: Fix Logitech's software update
+  command: rm -f /Library/Application\ Support/Logitech.localized/Logitech\ Options.localized/Updates/PendingUpdates.xml
