@@ -102,10 +102,14 @@ chgrp:
   do: exec
   desc: Change group and add sticky bit recursively
   command: chgrp -R <<group name>> . && chmod -R g+s .
-permission:
+permission:640:
   do: exec
   desc: recursively change ownership, add sticky bit, etc.
   command: chown -R <<user>> . && chgrp -R <<group>> . && find . -type d -exec chmod 2750 {} + && find . -type f -exec chmod 640 {} +
+permission:644:
+  do: exec
+  desc: recursively change ownership, add sticky bit, etc.
+  command: chown -R <<user>> . && chgrp -R <<group>> . && find . -type d -exec chmod 2755 {} + && find . -type f -exec chmod 644 {} +
 # File systems
 df:
   do: exec
