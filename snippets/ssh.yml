@@ -50,7 +50,7 @@ mbp:
 ucbcmb:
   do: exec
   desc: connect to ucbcmb
-  command: ssh ucbcmb@128.32.124.215
+  command: ssh ucbcmb@128.32.124.219
 
 
 ssh:tunnel:
