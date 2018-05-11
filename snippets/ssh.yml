@@ -34,7 +34,7 @@ lpc:
 icsx:
   do: exec
   desc: connect to icsx
-  command: <<command(ssh,mosh)>> kolen@<<host(172.22.2.9)>>
+  command: <<command(ssh,mosh)>> kolen@<<host(2607:f140:2:0:e748:557d:6bf4:542c,172.22.2.9)>>
 server:
   do: exec
   desc: connect to server
