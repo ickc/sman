@@ -40,7 +40,7 @@ git:push:ab:
 git:push:pa:
   do: exec
   desc: push branch master and python3 to both bolo and github.
-  command: for branch in master python3; do git checkout $branch && git push origin $branch && git push github $branch; done
+  command: for branch in python3 master; do git checkout $branch && git push origin $branch && git push github $branch; done
 # null2full
 null2full:
   do: exec
