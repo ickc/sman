@@ -46,3 +46,7 @@ null2full:
   do: exec
   desc: find all level 1 dir start with null_* and rename them as full_*
   command: find -mindepth 1 -maxdepth 1 -name 'null_*' | sed 's/^\.\/null_\(.*\)$/mv null_\1 full_\1/g' | xargs -i -n1 -P1 bash -c '$0' {}
+install:makefile:
+  do: exec
+  desc: make symlink of makefiles from abx to current directory
+  command: for i in common.in makefile null.in nreal_mapsplits.in; do ln -s $SCRATCH/POLARBEAR/AnalysisBackend-Extras-ickc/makefile/$i .; done
