@@ -10,7 +10,7 @@ ssh:go:
 ssh:to:
   do: exec
   desc: ssh to Tostada, assume on Gordita.
-  command: ssh 192.168.1.80
+  command: ssh khcheung@tostada1.physics.berkeley.edu
 ssh:sp:
   do: exec
   desc: ssh to Stampede from XSEDE
@@ -136,3 +136,9 @@ lpc:raid:nfs:
   do: exec
   desc: mount NFS
   command: sudo mkdir -p /Volumes/raid24 && sudo mount 128.32.117.118:/mnt/raid24 /Volumes/raid24
+
+# wakeonlan
+wake:lpc:
+  do: exec
+  desc: wake up lpc over LAN
+  command: wakeonlan 1c:1b:0d:ec:19:de
