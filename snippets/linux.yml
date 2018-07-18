@@ -40,3 +40,8 @@ timedatectl:status:
   do: exec
   desc: check time synchronization status
   command: timedatectl status
+
+inotify:
+  do: exec
+  desc: refresh inotify and show the before and after change
+  command: sysctl fs.inotify; sudo sysctl -p; sysctl fs.inotify
