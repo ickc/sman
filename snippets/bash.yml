@@ -4,7 +4,7 @@ fd:
   command: find . -iname '*.<<extension>>'
 fd:ext:
   do: exec
-  command: find . -type f -not -path "*.git*" | awk -F'.' '{print $NF}' | sort | uniq -c | sort -g
+  command: find \! -path '*/.git/*' -type f | awk -F'.' '{print $NF}' | sort | uniq -c | sort -g
 fd:x:
   do: exec
   command: find . -maxdepth 1 -perm -111 -type f
@@ -50,7 +50,7 @@ gp:
   command: grep -irHn --color=auto '<<pattern>>' ./
 fd:gp:
   do: exec
-  command: find . -iname '*.<<extension>>' -exec grep -Hn --color=auto '<<pattern>>' {} +
+  command: find . -iname '*.<<extension>>' -exec grep -Hn --color=auto -e '<<pattern>>' {} +
 fd:gp:time:ram:
   do: exec
   desc: assume <<pattern>> finds output of GNU time, get the row of max. mem. used, cut and sort by the numbers.
@@ -92,7 +92,7 @@ tp:tag:
 # file archive
 untar:
   do: exec
-  command: tar -xzf <<filename>>
+  command: mkdir <<dir>>; tar -xf <<filename>> -C <<dir>>
 tar:ls:
   do: exec
   command: tar -tf <<filename>>
@@ -147,7 +147,7 @@ wget:unzip:
 # misc
 openconnect:
   do: exec
-  command: sudo openconnect ucbvpn.berkeley.edu
+  command: until sudo openconnect ucbvpn.berkeley.edu; do sleep 2; done
 pkill:
   do: exec
   desc: kill all process of current user
