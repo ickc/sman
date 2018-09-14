@@ -50,3 +50,11 @@ git:pull:
   do: exec
   desc: pull all repositories under current directory
   command: find -maxdepth 1 -mindepth 1 -exec bash -c 'cd $0; git pull' {} \;
+git:pushmerge:
+  do: exec
+  desc: perform a common pattern---git push then checkout then merge then push
+  command: git checkout <<from>> && git push && git checkout <<to>> && git merge --no-edit <<from>> && git push
+git:undo:
+  do: exec
+  desc: undo last commit while keeping change
+  command: bash -c 'git reset HEAD^'
