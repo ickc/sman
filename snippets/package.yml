@@ -25,6 +25,14 @@ conda:batch:rm:
   do: exec
   desc: remove all conda environments
   command: conda info --env | grep -v -E '#|root' - | cut -d' ' -f1 | xargs -i -n1 -P1 bash -c 'conda remove -n $0 --all -y' {}
+conda:ch:
+  do: exec
+  desc: set a highest priority channel
+  command: conda config --prepend channels <<channel(defaults,intel)>> && cat ~/.condarc
+conda:update:
+  do: exec
+  desc: update conda and anaconda
+  command: conda update -n base -c defaults conda anaconda
 
 pip:dev:
   do: exec
@@ -63,3 +71,13 @@ go:update:
   do: exec
   desc: update all go packages
   command: go get -u all
+
+# jupyter
+jupyter:lab:install:
+  do: exec
+  desc: install a jupyter lab extension
+  command: jupyter labextension install <<extension>>
+jupyter:ls:
+  do: exec
+  desc: list installed jupyter lab extensions
+  command: jupyter labextension list
