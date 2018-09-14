@@ -93,6 +93,15 @@ tp:tag:
 untar:
   do: exec
   command: tar -xzf <<filename>>
+tar:ls:
+  do: exec
+  command: tar -tf <<filename>>
+xz:ext:
+  do: exec
+  command: find -name '*.<<ext>>' | XZ_OPT=-9 tar -cJf $(basename $(pwd)).<<ext>>.tar.xz -T -
+xz:txt:
+  do: exec
+  command: find -regextype posix-egrep -regex ".*/.*(-stdout_[[:digit:]]*|-stderr_[[:digit:]]*|makefile|.txt|.err|.csv|.out|.time|.in)" | XZ_OPT=-e9 tar -cJf $(basename $(pwd)).txt.tar.xz -T -
 # ACLs
 ls:grp:
   do: exec
@@ -167,3 +176,8 @@ info:smart:
 info:hdparm:
   do: exec
   command: sudo hdparm -I /dev/<<disk>>
+
+md5:
+  do: exec
+  desc: save md5sum of all files into md5sum.txt
+  command: find -type f \! -name 'md5sum.txt' -exec md5sum {} + > md5sum.txt
