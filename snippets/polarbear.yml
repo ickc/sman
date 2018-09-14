@@ -36,7 +36,7 @@ coadd:rm:hdf5:
 git:push:ab:
   do: exec
   desc: push branch cleanup and khcheung to both bolo and github.
-  command: for branch in cleanup khcheung; do git checkout $branch && git push origin $branch && git push github $branch; done
+  command: for branch in cleanup jcdelensing neil_unblinding yuyang khcheung; do git checkout $branch && git push origin $branch && git push github $branch; done
 git:push:pa:
   do: exec
   desc: push branch master and python3 to both bolo and github.
