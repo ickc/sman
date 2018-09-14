@@ -40,3 +40,7 @@ zfs:sdrc:
   do: exec
   desc: ZFS send and receive. Double check how snapshot should be specified.
   command: sudo zfs send <<input(RAIDZ2TB,RAIDZ4TB,RAIDZ9TB,RAIDZ12TB)>>/@<<snapshot>> | sudo zfs receive <<output(RAIDZ2TB,RAIDZ4TB,RAIDZ9TB,RAIDZ12TB)>>/
+zfs:version:
+  do: exec
+  desc: check zfs version
+  command: if [[ $(uname) == Darwin ]]; then sysctl -a | grep -E '(zfs|spl)\.kext'; fi
