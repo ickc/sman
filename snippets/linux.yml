@@ -43,5 +43,5 @@ timedatectl:status:
 
 inotify:
   do: exec
-  desc: refresh inotify and show the before and after change
-  command: sysctl fs.inotify; sudo sysctl -p; sysctl fs.inotify
+  desc: refresh inotify and show the before and after change; restart dropbox service
+  command: sysctl fs.inotify; sudo sysctl -p; sysctl fs.inotify; sudo systemctl restart dropbox@kolen.service && sudo systemctl restart system-dropbox.slice
