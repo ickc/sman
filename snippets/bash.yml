@@ -4,7 +4,7 @@ fd:
   command: find . -iname '*.<<extension>>'
 fd:ext:
   do: exec
-  command: find \! -path '*/.git/*' -type f | awk -F'.' '{print $NF}' | sort | uniq -c | sort -g
+  command: find \! -path '*/.git/*' -type f | sed -E 's/^.*([./][^./]+)$/\1/' | sort | uniq -c | sort -n
 fd:x:
   do: exec
   command: find . -maxdepth 1 -perm -111 -type f
