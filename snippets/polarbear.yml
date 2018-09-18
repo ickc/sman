@@ -49,4 +49,4 @@ null2full:
 install:makefile:
   do: exec
   desc: make symlink of makefiles from abx to current directory
-  command: for i in common.in makefile null.in nreal_mapsplits.in; do ln -s $SCRATCH/POLARBEAR/AnalysisBackend-Extras-ickc/makefile/$i .; done
+  command: for i in common.in makefile null.in full.in nreal_mapsplits.in; do ln -s $SCRATCH/POLARBEAR/AnalysisBackend-Extras-ickc/makefile/$i .; done
