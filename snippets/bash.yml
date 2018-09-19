@@ -8,7 +8,7 @@ fd:ext:
 fd:name:
   do: exec
   desc: find a pattern in name and print a stat. of freq. per name
-  command: find -name '<<name>>' | sed -E 's/^.*\/([^/]+)$/\1/g' | sort -u 
+  command: find -name '<<name>>' | sed -E 's/^.*\/([^/]+)$/\1/g' | sort | uniq -c | sort -n
 fd:dir:
   do: exec
   desc: find a name with pattern, and print total no. of such files per 1st level sub-directory
