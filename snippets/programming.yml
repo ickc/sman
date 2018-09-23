@@ -6,6 +6,10 @@ python:snakeviz:
   do: exec
   command: BROWSER=echo snakeviz program.prof
 
+python:coverage:
+  do: exec
+  command: coverage run --branch --parallel-mode <<script>>
+
 python:rm:weave:
   do: exec
   desc: remove scipy weave's cache
@@ -17,7 +21,7 @@ jupyter:nb:
 
 autopep8:
   do: exec
-  command: autopep8 <<path>> --recursive --in-place --pep8-passes 2000 --verbose <<option( , --aggressive --aggressive)>>
+  command: autopep8 <<path>> --recursive --in-place --pep8-passes 2000 --verbose <<option( , --aggressive --aggressive)>> --ignore E501,E265
 
 ipcluster:
   do: exec
