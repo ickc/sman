@@ -7,6 +7,10 @@ fd:name:
   do: exec
   desc: find a name pattern, show counts of filenames. Ignore .git
   command: find \! -path '*/.git/*' -type f -name '<<name>>' | sed -E 's/^.*\/([^/]+)$/\1/g' | sort | uniq -c | sort -n
+fd:git:
+  do: exec
+  desc: find all git repositories recursively
+  command: find -name '.git' | sed -E 's/^(.*)\/[^/]*$/\1/g' | sort
 fd:dir:
   do: exec
   desc: find a name pattern and show counts of the parent directories. Ignore .git
