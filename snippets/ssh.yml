@@ -34,7 +34,7 @@ lpc:
 icsx:
   do: exec
   desc: connect to icsx
-  command: <<command(ssh,mosh)>> kolen@<<host(2607:f140:2:0:e748:557d:6bf4:542c,172.22.2.9)>>
+  command: <<command(ssh,mosh)>> kolen@<<host(2607:f140:2:0:8644:65db:6121:ab01,172.22.2.2)>>
 server:
   do: exec
   desc: connect to server
@@ -42,7 +42,7 @@ server:
 desktop:
   do: exec
   desc: connect to desktop
-  command: <<command(ssh,mosh)>> kolen@<<host(192.168.1.109,172.22.2.3)>>
+  command: <<command(ssh,mosh)>> kolen@<<host(192.168.1.100,172.22.2.3)>>
 mbp:
   do: exec
   desc: connect to mbp
