@@ -81,3 +81,9 @@ jupyter:ls:
   do: exec
   desc: list installed jupyter lab extensions
   command: jupyter labextension list
+
+# vscode
+code:ls:
+  do: exec
+  desc: list vscode installed extensions
+  command: code --list-extensions 2>/dev/null
