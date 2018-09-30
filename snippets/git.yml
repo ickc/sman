@@ -58,3 +58,7 @@ git:undo:
   do: exec
   desc: undo last commit while keeping change
   command: bash -c 'git reset HEAD^'
+git:force:push:
+  do: exec
+  desc: force fush to remote
+  command: git push -f
