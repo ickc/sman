@@ -27,6 +27,10 @@ fd:dir3:
   do: exec
   desc: find a name pattern, and show counts per 3rd level sub-directory. Ignore .git
   command: find \! -path '*/.git/*' -type f -name '<<name>>' | awk -F '/' '{print $2"/"$3"/"$4}' | sort | uniq -c | sort -n
+fd:poor:name:
+  do: exec
+  desc: find poor pathnames
+  command: find -exec bash -c 'for name do [[ "$name" =~ ^[a-zA-Z0-9./_-]*$ ]] || echo $name; done' bash {} +
 fd:x:
   do: exec
   desc: Find executables. Ignore .git
