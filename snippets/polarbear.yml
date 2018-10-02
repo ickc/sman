@@ -1,3 +1,32 @@
+aben:
+  do: exec
+  desc: run env.sh
+  command: . $SCRATCH/POLARBEAR/AnalysisBackend-Extras-ickc/bin/env.sh <<flags>>
+abpn:
+  do: exec
+  desc: run path.sh
+  command: . $SCRATCH/POLARBEAR/AnalysisBackend-Extras-ickc/bin/path.sh
+
+# set PATH
+dautil:
+  do: exec
+  desc: lazy install dautil
+  command: export PATH="$PATH:$SCRATCH/POLARBEAR/dautil-py/bin:$SCRATCH/POLARBEAR/dautil-sh/bin" && export PYTHONPATH="$PYTHONPATH:$SCRATCH/POLARBEAR/dautil-py"
+pbbin:
+  do: exec
+  desc: lazy install everything related to AnalysisBackend
+  command: export PATH="$PATH:$SCRATCH/POLARBEAR/AnalysisBackend-Extras-ickc/bin:$SCRATCH/POLARBEAR/dautil-py/bin:$SCRATCH/POLARBEAR/dautil-sh/bin:$PBCOMMON/AnalysisBackend/ab2/bin" && export PYTHONPATH="$PYTHONPATH:$SCRATCH/POLARBEAR/dautil-py:$SCRATCH/POLARBEAR/AnalysisBackend-Extras-ickc"
+ab2bin:
+  do: exec
+  desc: lazy install ab2's bin
+  command: if [[ -n $NERSC_HOST ]]; then export PATH="$PATH:/global/common/software/polar/AnalysisBackend/ab2/bin"; else export PATH="$PATH:$SCRATCH/POLARBEAR/ab2/bin"; fi
+
+# install
+ab2nersc:
+  do: exec
+  desc: install ab2 from scratch to common, assume running on NERSC and aben loaded.
+  command: rsync -avmz --delete --stats --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore $SCRATCH/POLARBEAR/ab2/ $PBCOMMON/AnalysisBackend/ab2/ && cd $PBCOMMON/AnalysisBackend/ab2 && make && cd -
+
 # precoess_field_whwp.py related
 ab:jobid:
   do: exec
