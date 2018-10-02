@@ -31,3 +31,8 @@ ab2nersc:
   do: exec
   desc: install ab2 from scratch to common, assume running on NERSC and aben loaded.
   command: rsync -avmz --delete --stats --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore $SCRATCH/POLARBEAR/ab2/ $PBCOMMON/AnalysisBackend/ab2/ && cd $PBCOMMON/AnalysisBackend/ab2 && make && cd -
+
+gitit:serve:
+  do: exec
+  desc: find 
+  command: dir="$(find -name _default.conf -exec dirname {} +)"; subdir="$(basename "$dir")"; cd "$dir/.." && gitit -f "$subdir/_default.conf"
