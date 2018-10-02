@@ -118,7 +118,7 @@ fd:make:clean:
   do: exec
   desc: find all makefiles in any sub-directories and run 'make clean'
   #  && make clean && cd -
-  command: find -type f \( -name GNUmakefile -o -name makefile -o -name Makefile \) -exec bash -c 'for makefile do cd ${makefile%/*}; make clean; cd -; done' bash {} +
+  command: find -type f \( -name GNUmakefile -o -name makefile -o -name Makefile \) -exec bash -c 'for makefile do cd "${makefile%/*}"; make -f "${makefile##*/}" clean; cd -; done' bash {} +
 
 # grep #########################################################################
 gp:
