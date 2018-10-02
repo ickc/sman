@@ -1,7 +1,7 @@
 aben:
   do: exec
   desc: run env.sh
-  command: . $SCRATCH/POLARBEAR/AnalysisBackend-Extras-ickc/bin/env.sh <<flags>>
+  command: . /global/common/software/polar/local/bin/abenv.sh <<flags>>
 abpn:
   do: exec
   desc: run path.sh
