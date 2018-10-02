@@ -15,6 +15,21 @@ python:rm:weave:
   desc: remove scipy weave's cache
   command: rm -rf ~/.cache/scipy/ ~/.cache/weave/
 
+fd:rm:ipycp:
+  do: exec
+  desc: find and remove all .ipynb_checkpoints
+  command: find -type d -name '.ipynb_checkpoints' -exec rm -rf {} +
+
+fd:rm:py:aux:
+  do: exec
+  desc: remove python's auxiliary files
+  command: find \( -type f -name '*.py[co]' -o -type d -name '__pycache__' \) -delete
+
+fd:ipy:clear:
+  do: exec
+  cesc: find all ipynb and clear output cells
+  command: find -name '*.ipynb' -exec jupyter nbconvert --ClearOutputPreprocessor.enabled=True --inplace {} +
+
 jupyter:nb:
   do: exec
   command: jupyter notebook --no-browser --port=8989
