@@ -10,7 +10,15 @@ fd:name:
 fd:git:
   do: exec
   desc: find all git repositories recursively
-  command: find -name '.git' | sed -E 's/^(.*)\/[^/]*$/\1/g' | sort
+  command: find -name '.git' | sed -E 's/^(.*)\/[^/]*$/\1/g'
+fd:git:level:
+  do: exec
+  desc: find all git repositories and do a statistics on how depth the levels are
+  command: echo "count\tlevel"; find -name '.git' | awk -F/ '{print NF - 2}' | sort | uniq -c | sort -n -k2
+fd:not:git:level:
+  do: exec
+  desc: find directories at a level that is not a git repo
+  command: find -maxdepth <<level>> -mindepth <<level>> -type d -exec bash -c '[[ -d "$0/.git" ]] || echo $0' {} \;
 fd:dir:
   do: exec
   desc: find a name pattern and show counts of the parent directories. Ignore .git
