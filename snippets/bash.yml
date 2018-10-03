@@ -15,6 +15,14 @@ fd:git:level:
   do: exec
   desc: find all git repositories and do a statistics on how depth the levels are
   command: echo "count\tlevel"; find -name '.git' | awk -F/ '{print NF - 2}' | sort | uniq -c | sort -n -k2
+fd:git:ig:ext:
+  do: exec
+  desc: find all git-ignored files and print a stat. on the extentions similar to fd:ext
+  command: git status --porcelain=1 --ignored | grep -E "^\!\!" | sed -E 's/^.*([./][^./]+)[/]?$/\1/' | sort | uniq -c | sort -n
+fd:git:ig:rm:
+  do: exec
+  desc: find all git-ignored files and delete them. Note that it is not safe if the pathnames contain special characters
+  command: git status --porcelain=1 --ignored | grep -E "^\!\!" | sed 's/^..//g' | xargs -i rm -rf "{}"
 fd:not:git:level:
   do: exec
   desc: find directories at a level that is not a git repo
