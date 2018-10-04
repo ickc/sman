@@ -1,7 +1,7 @@
 aben:
   do: exec
   desc: run env.sh
-  command: . /global/common/software/polar/local/bin/abenv.sh <<flags>>
+  command: . abenv.sh <<flags>>
 abpn:
   do: exec
   desc: run path.sh
