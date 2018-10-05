@@ -5,27 +5,27 @@ aben:
 abpn:
   do: exec
   desc: run path.sh
-  command: . $SCRATCH/POLARBEAR/AnalysisBackend-Extras-ickc/bin/path.sh
+  command: . $HOME/git/cmb-polarbear_private/AnalysisBackend-Extras-ickc/bin/path.sh
 
 # set PATH
 dautil:
   do: exec
   desc: lazy install dautil
-  command: export PATH="$PATH:$SCRATCH/POLARBEAR/dautil-py/bin:$SCRATCH/POLARBEAR/dautil-sh/bin" && export PYTHONPATH="$PYTHONPATH:$SCRATCH/POLARBEAR/dautil-py"
+  command: export PATH="$PATH:$HOME/git/source/dautil-py/bin:$HOME/git/source/dautil-sh/bin" && export PYTHONPATH="$PYTHONPATH:$HOME/git/source/dautil-py"
 pbbin:
   do: exec
   desc: lazy install everything related to AnalysisBackend
-  command: export PATH="$PATH:$SCRATCH/POLARBEAR/AnalysisBackend-Extras-ickc/bin:$SCRATCH/POLARBEAR/dautil-py/bin:$SCRATCH/POLARBEAR/dautil-sh/bin:$PBCOMMON/AnalysisBackend/ab2/bin" && export PYTHONPATH="$PYTHONPATH:$SCRATCH/POLARBEAR/dautil-py:$SCRATCH/POLARBEAR/AnalysisBackend-Extras-ickc"
+  command: export PATH="$PATH:$HOME/git/cmb-polarbear_private/AnalysisBackend-Extras-ickc/bin:$HOME/git/source/dautil-py/bin:$HOME/git/source/dautil-sh/bin:$PBCOMMON/AnalysisBackend/ab2/bin" && export PYTHONPATH="$PYTHONPATH:$HOME/git/source/dautil-py:$HOME/git/cmb-polarbear_private/AnalysisBackend-Extras-ickc"
 ab2bin:
   do: exec
   desc: lazy install ab2's bin
-  command: if [[ -n $NERSC_HOST ]]; then export PATH="$PATH:/global/common/software/polar/AnalysisBackend/ab2/bin"; else export PATH="$PATH:$SCRATCH/POLARBEAR/ab2/bin"; fi
+  command: if [[ -n $NERSC_HOST ]]; then export PATH="$PATH:/global/common/software/polar/AnalysisBackend/ab2/bin"; else export PATH="$PATH:$HOME/git/private/ab2/bin"; fi
 
 # install
 ab2nersc:
   do: exec
   desc: install ab2 from scratch to common, assume running on NERSC and aben loaded.
-  command: rsync -avmz --delete --stats --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore $SCRATCH/POLARBEAR/ab2/ $PBCOMMON/AnalysisBackend/ab2/ && cd $PBCOMMON/AnalysisBackend/ab2 && make && cd -
+  command: rsync -avmz --delete --stats --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore $HOME/git/private/ab2/ $PBCOMMON/AnalysisBackend/ab2/ && cd $PBCOMMON/AnalysisBackend/ab2 && make && cd -
 
 # precoess_field_whwp.py related
 ab:jobid:
@@ -86,4 +86,4 @@ full2null:
 install:makefile:
   do: exec
   desc: make symlink of makefiles from abx to current directory
-  command: for i in common.in makefile null.in full.in nreal_mapsplits.in; do ln -s $SCRATCH/POLARBEAR/AnalysisBackend-Extras-ickc/makefile/$i .; done
+  command: for i in common.in makefile null.in full.in nreal_mapsplits.in; do ln -s $HOME/git/cmb-polarbear_private/AnalysisBackend-Extras-ickc/makefile/$i .; done
