@@ -2,7 +2,7 @@
 tosr:
   do: exec
   desc: run hpc.sh
-  command: ~/git/GitHub-private/my-rsync/hpc.sh <<flags>>
+  command: ~/git/private/my-rsync/hpc.sh <<flags>>
 
 gitit:serve:
   do: exec
