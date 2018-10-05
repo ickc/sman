@@ -53,7 +53,7 @@ git:cp:
 git:batch:
   do: exec
   desc: batch pull/psuh at all repositories at a certain level
-  command: level=$((<<level>> - 1)); find -maxdepth $level -mindepth $level -type d -name '.git' -print0 | xargs -0 -i -n1 -P0 bash -c 'cd $0/.. && git <<action(pull,push)>>' {}
+  command: level=$((<<level>> + 1)); find -maxdepth $level -mindepth $level -type d -name '.git' -print0 | xargs -0 -i -n1 -P0 bash -c 'cd $0/.. && git <<action(pull,push)>>' {}
 git:push:merge:
   do: exec
   desc: perform a common pattern---git push then checkout then merge then push
