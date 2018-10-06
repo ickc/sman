@@ -22,6 +22,10 @@ ab2bin:
   command: if [[ -n $NERSC_HOST ]]; then export PATH="$PATH:/global/common/software/polar/AnalysisBackend/ab2/bin"; else export PATH="$PATH:$HOME/git/private/ab2/bin"; fi
 
 # install
+clone:ab:
+  do: exec
+  desc: clone AnalysisBackend in ~/git/POLARBEAR
+  command: dir="$HOME/git/POLARBEAR"; mkdir -p "$dir"; cd "$dir" && git clone khcheung@bolowiki.berkeley.edu:/pbrepo/AnalysisBackend.git
 ab2nersc:
   do: exec
   desc: install ab2 from scratch to common, assume running on NERSC and aben loaded.
