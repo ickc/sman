@@ -9,8 +9,12 @@ ssh:go:
   command: ssh khcheung@gordita.physics.berkeley.edu
 ssh:to:
   do: exec
-  desc: ssh to Tostada, assume on Gordita.
+  desc: ssh to Tostada
   command: ssh khcheung@tostada1.physics.berkeley.edu
+ssh:bolo:
+  do: exec
+  desc: ssh to bolowiki
+  command: ssh khcheung@bolowiki.berkeley.edu
 ssh:sp:
   do: exec
   desc: ssh to Stampede from XSEDE
