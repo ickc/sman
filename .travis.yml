@@ -1,6 +1,7 @@
 language: go
 
 go:
+  - "1.2.x"
   - "1.3.x"
   - "1.4.x"
   - "1.5.x"
@@ -14,6 +15,6 @@ go:
   - master
 
 install:
-  - make all -j3
+      - go get -t ./...
 script:
   - make -j3
