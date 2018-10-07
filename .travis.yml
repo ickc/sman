@@ -12,3 +12,8 @@ go:
   - "1.11.x"
   - "1.x.x"
   - master
+
+install:
+  - make all -j3
+script:
+  - make -j3
