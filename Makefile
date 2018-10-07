@@ -1,4 +1,4 @@
-VERSION := $(shell awk -F= '/version =/ {print $$2}' lib/root.go | tr -d "\" ")
+VERSION = $(shell awk -F= '/version =/ {print $$2}' lib/root.go | tr -d "\" ")
 
 test:
 		go test -v ./...
