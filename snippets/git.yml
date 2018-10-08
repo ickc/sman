@@ -70,3 +70,7 @@ git:force:push:
   do: exec
   desc: force fush to remote
   command: git push -f
+hub:rm:draft:
+  do: exec
+  desc: remove Draft in GitHub Releases
+  command: hub release -f "%T (%S) %n" --include-drafts | grep " (draft)" | awk '{print $1}' | xargs -n1 hub release delete
