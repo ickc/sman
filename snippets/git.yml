@@ -16,7 +16,7 @@ git:remote:add:
 git:submodule:update:
   do: exec
   desc: update submodules recursively
-  command: git submodule update --recursive --remote
+  command: git submodule update --init --recursive --remote
 git:submodule:reset:
   do: exec
   desc: reset the submodule status, useful when it is dirty
