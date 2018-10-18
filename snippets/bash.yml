@@ -7,6 +7,10 @@ fd:name:
   do: exec
   desc: find a name pattern, show counts of filenames. Ignore .git
   command: find \! -path '*/.git/*' -type f -name '<<name>>' | sed -E 's/^.*\/([^/]+)$/\1/g' | sort | uniq -c | sort -n
+fd:unread:
+  do: exec
+  desc: find unreadable files
+  command: find \! -readable 2> /dev/null
 fd:git:
   do: exec
   desc: find all git repositories recursively
