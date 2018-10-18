@@ -46,3 +46,9 @@ fd:import:
   do: exec
   desc: Find .py recursively, and attempt to get all the modules imported in them.
   command: find . -iname '*.py' -exec grep -E --color=auto '^[ ]*(import|from) ' '{}' \; | sed -E -e 's/^[ ]*(import|from) ([^. ]+).*$/\2/g' | sort -u
+
+# TeX
+tex:doc:
+  do: exec
+  desc: cd to TeXLive's documentation directory
+  command: cd /usr/local/texlive/*/texmf-dist/doc/
