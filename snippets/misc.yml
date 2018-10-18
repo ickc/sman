@@ -6,5 +6,10 @@ tosr:
 
 gitit:serve:
   do: exec
-  desc: find 
+  desc: find gitit's conf file and serve it
   command: dir="$(find -name _default.conf -exec dirname {} +)"; subdir="$(basename "$dir")"; cd "$dir/.." && gitit -f "$subdir/_default.conf"
+
+routine:
+  do: exec
+  desc: perform routine update on git repos
+  command: cd ~/.sman && git pull; cd $ZPREZTODIR && git pull && git submodule update --init --recursive; cd ~/git && s r git:batch 2 1; if [[ `hostname` == lpc-mini ]]; then s r bolo2gh; s r bb2gh; fi
