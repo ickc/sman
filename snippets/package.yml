@@ -73,10 +73,14 @@ go:update:
   command: go get -u all
 
 # jupyter
-jupyter:lab:install:
+jupyter:install:
   do: exec
   desc: install a jupyter lab extension
   command: jupyter labextension install <<extension>>
+jupyter:update:
+  do: exec
+  desc: update all packages
+  command: jupyter labextension update --all
 jupyter:ls:
   do: exec
   desc: list installed jupyter lab extensions
