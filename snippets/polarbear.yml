@@ -100,3 +100,8 @@ bb2gh:
   do: exec
   desc: (routine) mirror bitbucket to github on lpc
   command: cd ~/git/source/bolo2github && git pull && make clean && make mirror-bitbucket && make clean
+
+nerscroutine:
+  do: exec
+  desc: (routine) run some routines on NERSC
+  command: s r pbbin && rsync-AnalysisBackend.sh
