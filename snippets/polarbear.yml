@@ -1,96 +1,87 @@
-aben:
+# Set environments #############################################################
+
+env:aben:
   do: exec
   desc: run env.sh
   command: . abenv.sh <<flags>>
-abpn:
-  do: exec
-  desc: run path.sh
-  command: . $HOME/git/cmb-polarbear_private/AnalysisBackend-Extras-ickc/bin/path.sh
 
 # set PATH
-dautil:
+env:func:py:
   do: exec
-  desc: lazy install dautil
-  command: export PATH="$PATH:$HOME/git/source/dautil-py/bin:$HOME/git/source/dautil-sh/bin" && export PYTHONPATH="$PYTHONPATH:$HOME/git/source/dautil-py"
-pbbin:
+  desc: prepend PATH and PYTHONPATH in a directory of python library with bin
+  command: export PATH="<<dir>>/bin:$PATH" && export PYTHONPATH="<<dir>>:$PYTHONPATH"
+env:func:bin:
   do: exec
-  desc: lazy install everything related to AnalysisBackend
-  command: export PATH="$PATH:$HOME/git/cmb-polarbear_private/AnalysisBackend-Extras-ickc/bin:$HOME/git/source/dautil-py/bin:$HOME/git/source/dautil-sh/bin:$PBCOMMON/AnalysisBackend/ab2/bin" && export PYTHONPATH="$PYTHONPATH:$HOME/git/source/dautil-py:$HOME/git/cmb-polarbear_private/AnalysisBackend-Extras-ickc"
-ab2bin:
+  desc: prepend PATH in a directory with bin
+  command: export PATH="<<dir>>/bin:$PATH"
+env:dautil-py:
+  do: exec
+  desc: lazy install dautil-py
+  command: if [[ -n $NERSC_HOST ]]; then s r env:func:py "$PBCOMMON/AnalysisBackend/dautil-py"; else s r env:func:py "$HOME/git/source/dautil-py"; fi
+env:abx:
+  do: exec
+  desc: lazy install abx
+  command: if [[ -n $NERSC_HOST ]]; then s r env:func:py "$PBCOMMON/AnalysisBackend/AnalysisBackend-Extras-ickc"; else s r env:func:py "$HOME/git/cmb-polarbear_private/AnalysisBackend-Extras-ickc"; fi
+env:dautil-sh:
+  do: exec
+  desc: lazy install dautil-sh
+  command: if [[ -n $NERSC_HOST ]]; then s r env:func:bin "$PBCOMMON/AnalysisBackend/dautil-sh"; else s r env:func:bin "$HOME/git/source/dautil-sh"; fi
+env:ab2:
   do: exec
   desc: lazy install ab2's bin
-  command: if [[ -n $NERSC_HOST ]]; then export PATH="$PATH:/global/common/software/polar/AnalysisBackend/ab2/bin"; else export PATH="$PATH:$HOME/git/private/ab2/bin"; fi
+  command: if [[ -n $NERSC_HOST ]]; then s r env:func:bin "$PBCOMMON/AnalysisBackend/ab2"; else s r env:func:bin "$HOME/git/private/ab2"; fi
+env:pbbin:
+  do: exec
+  desc: lazy install everything related to AnalysisBackend
+  command: s r env:dautil-sh; s r env:dautil-py; s r env:abx; s r env:ab2
 
-# install
+# staging ######################################################################
+
+stage:makefile:
+  do: exec
+  desc: make symlink of makefiles from abx to current directory
+  command: for i in common.in makefile null.in full.in nreal_mapsplits.in; do ln -s $HOME/git/cmb-polarbear_private/AnalysisBackend-Extras-ickc/makefile/$i .; done
+
+# on NERSC
+stage:func:
+  do: exec
+  desc: (routine) a general stage function that perform rsync then make
+  command: rsync -avm --delete --stats --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore <<indir>> <<outdir>> && bash -c 'cd <<outdir>> && make'
+stage:dautil-py:
+  do: exec
+  desc: (routine) install dautil from git to common on NERSC. Assume aben loaded.
+  command: s r stage:func "$HOME/git/source/dautil-py/" "$PBCOMMON/AnalysisBackend/dautil-py/"
+stage:dautil-sh:
+  do: exec
+  desc: (routine) install dautil from git to common on NERSC. Assume aben loaded.
+  command: s r stage:func "$HOME/git/source/dautil-sh/" "$PBCOMMON/AnalysisBackend/dautil-sh/"
+stage:abx:
+  do: exec
+  desc: (routine) install abx from git to common on NERSC. Assume aben loaded.
+  command: s r stage:func "$HOME/git/cmb-polarbear_private/AnalysisBackend-Extras-ickc/" "$PBCOMMON/AnalysisBackend/AnalysisBackend-Extras-ickc/"
+stage:ab2:
+  do: exec
+  desc: (routine) install ab2 from git to common on NERSC. Assume aben loaded.
+  command: s r stage:func "$HOME/git/private/ab2/" "$PBCOMMON/AnalysisBackend/ab2/"
+
+stage:ab:
+  do: exec
+  desc: (routine) stage AnalysisBackend from git to common on NERSC. Assume aben loaded.
+  command: s r env:abx && rsync-AnalysisBackend.sh
+
+stage:all:
+  do: exec
+  desc: (routine) run all stage scripts above
+  command: s r stage:dautil-py; s r stage:dautil-sh; s r stage:abx; s r stage:ab2; s r stage:ab
+
+# clone ########################################################################
+
 clone:ab:
   do: exec
   desc: clone AnalysisBackend in ~/git/POLARBEAR
   command: dir="$HOME/git/POLARBEAR"; mkdir -p "$dir"; cd "$dir" && git clone khcheung@bolowiki.berkeley.edu:/pbrepo/AnalysisBackend.git
-ab2nersc:
-  do: exec
-  desc: install ab2 from scratch to common, assume running on NERSC and aben loaded.
-  command: rsync -avmz --delete --stats --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore $HOME/git/private/ab2/ $PBCOMMON/AnalysisBackend/ab2/ && cd $PBCOMMON/AnalysisBackend/ab2 && make && cd -
 
-# precoess_field_whwp.py related
-ab:jobid:
-  do: exec
-  desc: Get job ID from the stdout outputs. Assume using process_field_whwp.py with file pattern 'job_*-stdout*'.
-  command: find . -iname 'job_*-stdout*' | sed -E 's/^\.\/job_([0-9]+)-stdout_.*$/\1/g' | sort -un
-sed:time:
-  do: exec
-  desc: Replace the time function from the output of process_field_whwp.py to use the time command with output.
-  command: sed -i 's/^time \(.\+\) -o \([^ ]\+\) /\/usr\/bin\/time -v -o \2\/time.txt \1 -o \2 /g' <<filename>>
-# mapmaking
-map:stat:real:
-  do: exec
-  desc: Count the number of files with name realmap.hdf5.
-  command: find . -iname 'realmap.hdf5' | wc -l
-map:stat:sim:
-  do: exec
-  desc: Count the number of files with pattern sim(0-9){3}.hdf5.
-  command: for num in $(seq -w 000 <<nreal(007)>>); do filename="sim$num.hdf5"; printf "%s\t" "$filename"; find . -iname "$filename" | wc -l; done
-rm:hdf5:
-  do: exec
-  desc: delete corrupted hdf5 files
-  command: find . -name '*.hdf5' -exec h5delete.py -p 64 {} +
-# coadd
-coadd:stat:
-  do: exec
-  desc: Count no. of coadded files.
-  command: find . -path '*/coadd/*' -name '*.hdf5' | wc -l
-coadd:stat:obs:
-  do: exec
-  desc: Count no. of coadded observations
-  command: find -path '*/coadd/*' -name '*.hdf5' -exec dirname {} + | sort -u | wc -l
-coadd:rm:hdf5:
-  do: exec
-  desc: delete corrupted hdf5 files under coadd
-  command: find . -path '*/coadd/*' -name '*.hdf5' -exec h5delete.py -p 64 {} +
-git:pull:ab:
-  do: exec
-  desc: pull branch cleanup jcdelensing neil_unblinding yuyang khcheung from both bolo and github.
-  command: for branch in cleanup jcdelensing neil_unblinding yuyang khcheung; do git checkout $branch && git pull origin $branch && git push github $branch; done
-git:push:ab:
-  do: exec
-  desc: push branch cleanup jcdelensing neil_unblinding yuyang khcheung to both bolo and github.
-  command: for branch in cleanup jcdelensing neil_unblinding yuyang khcheung; do git checkout $branch && git push origin $branch && git push github $branch; done
-git:push:pa:
-  do: exec
-  desc: push branch master and python3 to both bolo and github.
-  command: for branch in python3 master; do git checkout $branch && git push origin $branch && git push github $branch; done
-# null2full
-null2full:
-  do: exec
-  desc: find all level 1 dir start with null_* and rename them as full_*
-  command: find -mindepth 1 -maxdepth 1 -type d -name 'null_*' | sed 's/^\.\/null_\(.*\)$/mv null_\1 full_\1/g' | xargs -i -n1 -P1 bash -c '$0' {}
-full2null:
-  do: exec
-  desc: find all level 1 dir start with full_* and rename them as null_*
-  command: find -mindepth 1 -maxdepth 1 -type d -name 'full_*' | sed 's/^\.\/full_\(.*\)$/mv full_\1 null_\1/g' | xargs -i -n1 -P1 bash -c '$0' {}
-install:makefile:
-  do: exec
-  desc: make symlink of makefiles from abx to current directory
-  command: for i in common.in makefile null.in full.in nreal_mapsplits.in; do ln -s $HOME/git/cmb-polarbear_private/AnalysisBackend-Extras-ickc/makefile/$i .; done
+# mirror #######################################################################
 
 bolo2gh:
   do: exec
@@ -101,7 +92,55 @@ bb2gh:
   desc: (routine) mirror bitbucket to github on lpc
   command: cd ~/git/source/bolo2github && git pull && make clean && make mirror-bitbucket && make clean
 
-nerscroutine:
+# stats ########################################################################
+
+map:stat:real:
   do: exec
-  desc: (routine) run some routines on NERSC
-  command: s r pbbin && rsync-AnalysisBackend.sh
+  desc: Count the number of files with name realmap.hdf5.
+  command: find -name 'realmap.hdf5' | wc -l
+map:stat:sim:
+  do: exec
+  desc: Count the number of files with pattern sim(0-9){3}.hdf5.
+  command: for num in $(seq -w 000 <<nreal(007)>>); do filename="sim$num.hdf5"; printf "%s\t" "$filename"; find -name "$filename" | wc -l; done
+# coadd
+coadd:stat:
+  do: exec
+  desc: Count no. of coadded files.
+  command: find -path '*/coadd/*' -name '*.hdf5' | wc -l
+coadd:stat:obs:
+  do: exec
+  desc: Count no. of coadded observations
+  command: find -type d -name coadd | wc -l
+
+# deleting corrupted files #####################################################
+
+h5:rm:
+  do: exec
+  desc: delete corrupted hdf5 files. TODO update arg
+  command: find . -name '*.hdf5' -exec h5delete.py -p 64 {} +
+h5:rm:coadd:
+  do: exec
+  desc: delete corrupted hdf5 files under coadd. TODO update arg
+  command: find . -path '*/coadd/*' -name '*.hdf5' -exec h5delete.py -p 64 {} +
+
+# null2full directory renaming #################################################
+
+rename:null2full:
+  do: exec
+  desc: find all level 1 dir start with null_* and rename them as full_*
+  command: find -mindepth 1 -maxdepth 1 -type d -name 'null_*' | sed 's/^\.\/null_\(.*\)$/mv null_\1 full_\1/g' | xargs -i -n1 -P0 bash -c '$0' {}
+rename:full2null:
+  do: exec
+  desc: find all level 1 dir start with full_* and rename them as null_*
+  command: find -mindepth 1 -maxdepth 1 -type d -name 'full_*' | sed 's/^\.\/full_\(.*\)$/mv full_\1 null_\1/g' | xargs -i -n1 -P0 bash -c '$0' {}
+
+# obsolete #####################################################################
+
+pfw:jobid:
+  do: exec
+  desc: Get job ID from the stdout filenames. Assume using process_field_whwp.py with file pattern 'job_*-stdout*'.
+  command: find -name 'job_*-stdout*' | sed -E 's/^\.\/job_([0-9]+)-stdout_.*$/\1/g' | sort -un
+pfw:sed:time:
+  do: exec
+  desc: Replace the time function from the output of process_field_whwp.py to use the time command with output.
+  command: sed -i 's/^time \(.\+\) -o \([^ ]\+\) /command time -v -o \2\/time.txt \1 -o \2 /g' <<filename>>
