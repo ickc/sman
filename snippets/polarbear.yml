@@ -95,7 +95,7 @@ clone:ab:
 bolo2gh:
   do: exec
   desc: (routine) mirror bolowiki to github on bolowiki
-  command: ssh -t khcheung@bolowiki.berkeley.edu 'cd /home/khcheung/git/bolo2github && git pull && make mirror-github'
+  command: ssh -t khcheung@bolowiki.berkeley.edu 'cd /home/khcheung/git/source/bolo2github && git pull && make mirror-github'
 bb2gh:
   do: exec
   desc: (routine) mirror bitbucket to github on lpc
