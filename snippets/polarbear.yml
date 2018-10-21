@@ -69,10 +69,19 @@ stage:ab:
   desc: (routine) stage AnalysisBackend from git to common on NERSC. Assume aben loaded.
   command: s r env:abx && rsync-AnalysisBackend.sh
 
+stage:analysis_data:
+  do: exec
+  desc: (routine) stage analysis_data from SCRATCH to common on NERSC.
+  command: rsync -av --stats $SCRATCH/data/largepatch4/analysis_data_iota/ $PBCOMMON/AnalysisBackend/analysis_data_iota/
+stage:ChileData:
+  do: exec
+  desc: (routine) stage analysis_data from SCRATCH to common on NERSC.
+  command: rsync -av --stats $SCRATCH/data/ChileData/ $PBCOMMON/AnalysisBackend/ChileData/
+
 stage:all:
   do: exec
   desc: (routine) run all stage scripts above
-  command: s r stage:dautil-py; s r stage:dautil-sh; s r stage:abx; s r stage:ab2; s r stage:ab
+  command: s r stage:dautil-py; s r stage:dautil-sh; s r stage:abx; s r stage:ab2; s r stage:ab; s r stage:analysis_data; s r stage:ChileData
 
 # clone ########################################################################
 
