@@ -72,7 +72,7 @@ stage:ab:
 stage:analysis_data:
   do: exec
   desc: (routine) stage analysis_data from SCRATCH to common on NERSC.
-  command: rsync -av --stats $SCRATCH/data/largepatch4/analysis_data_iota/ $PBCOMMON/AnalysisBackend/analysis_data_iota/
+  command: rsync -av --stats /global/project/projectdirs/polar/data/largepatch4/analysis_data_iota/ $PBCOMMON/AnalysisBackend/analysis_data_iota/
 stage:ChileData:
   do: exec
   desc: (routine) stage analysis_data from SCRATCH to common on NERSC.
