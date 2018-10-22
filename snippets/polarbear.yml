@@ -49,25 +49,25 @@ stage:func:
   command: rsync -avm --delete --stats --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore <<indir>> <<outdir>> && bash -c 'cd <<outdir>> && make'
 stage:dautil-py:
   do: exec
-  desc: (routine) install dautil from git to common on NERSC. Assume aben loaded.
-  command: s r stage:func "$HOME/git/source/dautil-py/" "$PBCOMMON/AnalysisBackend/dautil-py/"
+  desc: (routine) install dautil from git to common on NERSC.
+  command: . abenv.sh -pm cray -b ab2 -n 20180828-ab -v 3 -c intel; s r stage:func "$HOME/git/source/dautil-py/" "$PBCOMMON/AnalysisBackend/dautil-py/"
 stage:dautil-sh:
   do: exec
-  desc: (routine) install dautil from git to common on NERSC. Assume aben loaded.
+  desc: (routine) install dautil from git to common on NERSC.
   command: s r stage:func "$HOME/git/source/dautil-sh/" "$PBCOMMON/AnalysisBackend/dautil-sh/"
 stage:abx:
   do: exec
-  desc: (routine) install abx from git to common on NERSC. Assume aben loaded.
-  command: s r stage:func "$HOME/git/cmb-polarbear_private/AnalysisBackend-Extras-ickc/" "$PBCOMMON/AnalysisBackend/AnalysisBackend-Extras-ickc/"
+  desc: (routine) install abx from git to common on NERSC.
+  command: . abenv.sh -pm cray -b ab2 -n 20180828-ab -v 3 -c intel; s r stage:func "$HOME/git/cmb-polarbear_private/AnalysisBackend-Extras-ickc/" "$PBCOMMON/AnalysisBackend/AnalysisBackend-Extras-ickc/"
 stage:ab2:
   do: exec
-  desc: (routine) install ab2 from git to common on NERSC. Assume aben loaded.
-  command: s r stage:func "$HOME/git/private/ab2/" "$PBCOMMON/AnalysisBackend/ab2/"
+  desc: (routine) install ab2 from git to common on NERSC.
+  command: . abenv.sh -pm cray -b ab2 -n 20180828-ab -v 3 -c intel; s r stage:func "$HOME/git/private/ab2/" "$PBCOMMON/AnalysisBackend/ab2/"
 
 stage:ab:
   do: exec
-  desc: (routine) stage AnalysisBackend from git to common on NERSC. Assume aben loaded.
-  command: s r env:abx && rsync-AnalysisBackend.sh
+  desc: (routine) stage AnalysisBackend from git to common on NERSC.
+  command: . abenv.sh -pm cray -b khcheung -n 20180828-ab; s r env:abx && rsync-AnalysisBackend.sh
 
 stage:analysis_data:
   do: exec
