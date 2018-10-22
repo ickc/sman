@@ -115,11 +115,11 @@ map:stat:sim:
 coadd:stat:
   do: exec
   desc: Count no. of coadded files.
-  command: find -path '*/coadd/*' -name '*.hdf5' | wc -l
+  command: find -type f -regextype posix-egrep -regex '.*/[0-9]{8}_[0-9]{6}/coadd/[^/]*.hdf5' | wc -l
 coadd:stat:obs:
   do: exec
   desc: Count no. of coadded observations
-  command: find -type d -name coadd | wc -l
+  command: find -type d -regextype posix-egrep -regex '.*/[0-9]{8}_[0-9]{6}/coadd' | wc -l
 
 # deleting corrupted files #####################################################
 
