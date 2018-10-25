@@ -230,9 +230,14 @@ wget:unzip:
   desc: wget and unzip a zip file, on macOS only.
   command: wget -qO- '<<URL>>' | bsdtar -xf-
 
-################################################################################
+# gs ###########################################################################
 
-# misc
+gs:merge:
+  do: exec
+  desc: use ghostscript to merge PDFs
+  command: gs -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -sOutputFile="<<output>>" -f *.pdf
+
+# misc #########################################################################
 openconnect:
   do: exec
   command: until sudo openconnect ucbvpn.berkeley.edu; do sleep 2; done
