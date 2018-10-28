@@ -78,10 +78,15 @@ stage:ChileData:
   desc: (routine) stage analysis_data from SCRATCH to common on NERSC.
   command: rsync -av --stats $SCRATCH/data/ChileData/ $PBCOMMON/AnalysisBackend/ChileData/
 
+stage:neofetch:
+  do: exec
+  desc: install neofetch on NERSC common
+  command: cd ~/git/clone/neofetch && make install PREFIX=/global/common/software/polar/local
+
 stage:all:
   do: exec
   desc: (routine) run all stage scripts above
-  command: s r stage:dautil-py; s r stage:dautil-sh; s r stage:abx; s r stage:ab2; s r stage:ab; s r stage:analysis_data; s r stage:ChileData
+  command: s r stage:dautil-py; s r stage:dautil-sh; s r stage:abx; s r stage:ab2; s r stage:ab; s r stage:analysis_data; s r stage:ChileData; s r stage:neofetch
 
 # clone ########################################################################
 
