@@ -60,7 +60,8 @@ apt:update:
 apt:ls:
   do: exec
   desc: list installed apt packages
-  command: comm -23 <(apt-mark showmanual | sort -u) <(gzip -dc /var/log/installer/initial-status.gz | sed -n 's/^Package: //p' | sort -u)
+  command: |
+    comm -23 <(apt-mark showmanual | sort -u) <(gzip -dc /var/log/installer/initial-status.gz | sed -n 's/^Package: //p' | sort -u)
 
 # go
 go:update:
