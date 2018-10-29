@@ -44,3 +44,7 @@ zfs:version:
   do: exec
   desc: check zfs version
   command: if [[ $(uname) == Darwin ]]; then sysctl -a | grep -E '(zfs|spl)\.kext'; fi
+zfs:space:
+  do: exec
+  desc: show zfs space usage, sort by snapshot usage
+  command: zfs list -o space | sort -hk4
