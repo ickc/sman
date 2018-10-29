@@ -60,11 +60,7 @@ apt:update:
 apt:ls:
   do: exec
   desc: list installed apt packages
-  command: |
-    (zcat $(ls -tr /var/log/apt/history.log*.gz); cat /var/log/apt/history.log) 2> /dev/null |
-    egrep '^(Start-Date:|Commandline:)' |
-    grep -v aptdaemon |
-    egrep '^Commandline:'
+  command: comm -23 <(apt-mark showmanual | sort -u) <(gzip -dc /var/log/installer/initial-status.gz | sed -n 's/^Package: //p' | sort -u)
 
 # go
 go:update:
