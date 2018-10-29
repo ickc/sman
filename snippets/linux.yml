@@ -14,7 +14,7 @@ ls:group:
 ip:
   do: exec
   desc: get current IP address
-  command: ip route get 8.8.8.8 | awk '{print $NF; exit}'
+  command: ip route get 1.1.1.1
 
 ip:mac:
   do: exec
