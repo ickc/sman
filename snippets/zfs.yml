@@ -2,13 +2,14 @@ zfs:all:
   do: exec
   desc: show all zfs info
   command: |
-    sudo echo && printf '=%.0s' {1..80} && echo &&
-    sudo zpool status &&
-    echo && printf '=%.0s' {1..80} && echo &&
-    sudo zpool iostat &&
-    echo && printf '=%.0s' {1..80} && echo &&
-    sudo zpool list &&
-    echo && printf '=%.0s' {1..80} && echo &&
+    sudo -v
+    eval printf %.0s= '{1..'"${COLUMNS:-$(tput cols)}"\}
+    sudo zpool status
+    eval printf %.0s= '{1..'"${COLUMNS:-$(tput cols)}"\}
+    sudo zpool iostat
+    eval printf %.0s= '{1..'"${COLUMNS:-$(tput cols)}"\}
+    sudo zpool list
+    eval printf %.0s= '{1..'"${COLUMNS:-$(tput cols)}"\}
     sudo zfs list
 zfs:im:
   do: exec
