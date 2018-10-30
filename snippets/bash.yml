@@ -171,7 +171,7 @@ tar:xz:
 du:
   do: exec
   desc: show sizes of everything up to a certain level using du.
-  command: du -h --max-depth=<<level>> . | sort -h
+  command: du -h -d <<level>> . | sort -h
 # file indexing
 createdb:
   do: exec
