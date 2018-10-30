@@ -15,7 +15,7 @@ download(){
     fi
     [[ -d ~/.local/bin ]] || mkdir ~/.local/bin
     cd ~/.local/bin
-    local url=https://github.com/tokozedg/sman/releases/download/$version/${1}.tgz
+    local url=https://github.com/ickc/sman/releases/download/$version/${1}.tgz
     echo $url
     if command -v curl > /dev/null; then
         curl -fL $url | tar -xz
@@ -83,10 +83,11 @@ archi=$(uname -sm)
 binary_available=1
 binary_error=""
 case "$archi" in
-   Darwin\ x86_64) download "sman-darwin-amd64-$version" ;;
-   Linux\ x86_64)  download "sman-linux-amd64-$version"  ;;
-   Linux\ i*86)    download "sman-linux-386-$version"    ;;
-   Linux\ arm*)    download "sman-linux-arm-$version"    ;;
+   Darwin\ x86_64) download "sman-darwin-amd64-$version"  ;;
+   Linux\ x86_64)  download "sman-linux-amd64-$version"   ;;
+   Linux\ i*86)    download "sman-linux-386-$version"     ;;
+   Linux\ arm*)    download "sman-linux-arm-$version"     ;;
+   FreeBSD\ amd64) download "sman-freebsd-amd64-$version" ;;
   *)              binary_available=0 binary_error=1  ;;
 esac
 
