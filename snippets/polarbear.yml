@@ -111,7 +111,7 @@ bb2gh:
 map:stat:real:
   do: exec
   desc: Count the number of files with name realmap.hdf5.
-  command: find -name 'realmap.hdf5' | wc -l
+  command: find . -name 'realmap.hdf5' | wc -l
 map:stat:sim:
   do: exec
   desc: Count the number of files with pattern sim(0-9){3}.hdf5.
@@ -120,11 +120,11 @@ map:stat:sim:
 coadd:stat:
   do: exec
   desc: Count no. of coadded files.
-  command: find -type f -regextype posix-egrep -regex '.*/[0-9]{8}_[0-9]{6}/coadd/[^/]*.hdf5' | wc -l
+  command: find . -type f -regextype posix-egrep -regex '.*/[0-9]{8}_[0-9]{6}/coadd/[^/]*.hdf5' | wc -l
 coadd:stat:obs:
   do: exec
   desc: Count no. of coadded observations
-  command: find -type d -regextype posix-egrep -regex '.*/[0-9]{8}_[0-9]{6}/coadd' | wc -l
+  command: find . -type d -regextype posix-egrep -regex '.*/[0-9]{8}_[0-9]{6}/coadd' | wc -l
 
 # deleting corrupted files #####################################################
 
@@ -142,18 +142,18 @@ h5:rm:coadd:
 rename:null2full:
   do: exec
   desc: find all level 1 dir start with null_* and rename them as full_*
-  command: find -mindepth 1 -maxdepth 1 -type d -name 'null_*' | sed 's/^\.\/null_\(.*\)$/mv null_\1 full_\1/g' | xargs -i -n1 -P0 bash -c '$0' {}
+  command: find . -mindepth 1 -maxdepth 1 -type d -name 'null_*' | sed 's/^\.\/null_\(.*\)$/mv null_\1 full_\1/g' | xargs -i -n1 -P0 bash -c '$0' {}
 rename:full2null:
   do: exec
   desc: find all level 1 dir start with full_* and rename them as null_*
-  command: find -mindepth 1 -maxdepth 1 -type d -name 'full_*' | sed 's/^\.\/full_\(.*\)$/mv full_\1 null_\1/g' | xargs -i -n1 -P0 bash -c '$0' {}
+  command: find . -mindepth 1 -maxdepth 1 -type d -name 'full_*' | sed 's/^\.\/full_\(.*\)$/mv full_\1 null_\1/g' | xargs -i -n1 -P0 bash -c '$0' {}
 
 # obsolete #####################################################################
 
 pfw:jobid:
   do: exec
   desc: Get job ID from the stdout filenames. Assume using process_field_whwp.py with file pattern 'job_*-stdout*'.
-  command: find -name 'job_*-stdout*' | sed -E 's/^\.\/job_([0-9]+)-stdout_.*$/\1/g' | sort -un
+  command: find . -name 'job_*-stdout*' | sed -E 's/^\.\/job_([0-9]+)-stdout_.*$/\1/g' | sort -un
 pfw:sed:time:
   do: exec
   desc: Replace the time function from the output of process_field_whwp.py to use the time command with output.

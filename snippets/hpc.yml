@@ -34,4 +34,4 @@ BB:cd:
 sbatch:
   do: exec
   desc: sbatch in parallel
-  command: find -name '*.sh' | sort | xargs -i -n1 -P30 bash -c 'sbatch $0; sleep 5' {}
+  command: find . -name '*.sh' | sort | xargs -i -n1 -P30 bash -c 'sbatch $0; sleep 5' {}

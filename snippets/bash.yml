@@ -2,19 +2,19 @@
 fd:ext:
   do: exec
   desc: show counts of all extensions inside current directory, if no extension, show name instead. Ignore .git
-  command: find \! -path '*/.git/*' -type f | sed -E 's/^.*([./][^./]+)$/\1/' | sort | uniq -c | sort -n
+  command: find . \! -path '*/.git/*' -type f | sed -E 's/^.*([./][^./]+)$/\1/' | sort | uniq -c | sort -n
 fd:name:
   do: exec
   desc: find a name pattern, show counts of filenames. Ignore .git
-  command: find \! -path '*/.git/*' -type f -name '<<name>>' | sed -E 's/^.*\/([^/]+)$/\1/g' | sort | uniq -c | sort -n
+  command: find . \! -path '*/.git/*' -type f -name '<<name>>' | sed -E 's/^.*\/([^/]+)$/\1/g' | sort | uniq -c | sort -n
 fd:unread:
   do: exec
   desc: find unreadable files
-  command: find \! -readable 2> /dev/null
+  command: find . \! -readable 2> /dev/null
 fd:git:
   do: exec
   desc: find all git repositories recursively
-  command: find -name '.git' | sed -E 's/^(.*)\/[^/]*$/\1/g'
+  command: find . -name '.git' | sed -E 's/^(.*)\/[^/]*$/\1/g'
 fd:git:level:
   do: exec
   desc: find all git repositories and do a statistics on how depth the levels are
@@ -30,107 +30,107 @@ fd:git:ig:rm:
 fd:not:git:level:
   do: exec
   desc: find directories at a level that is not a git repo
-  command: find -maxdepth <<level>> -mindepth <<level>> -type d -exec bash -c '[[ -d "$0/.git" ]] || echo $0' {} \;
+  command: find . -maxdepth <<level>> -mindepth <<level>> -type d -exec bash -c '[[ -d "$0/.git" ]] || echo $0' {} \;
 fd:dir:
   do: exec
   desc: find a name pattern and show counts of the parent directories. Ignore .git
-  command: find \! -path '*/.git/*' -type f -name '<<name>>' | sed -E 's/^(.*)\/[^/]*$/\1/g' | sort | uniq -c | sort -n
+  command: find . \! -path '*/.git/*' -type f -name '<<name>>' | sed -E 's/^(.*)\/[^/]*$/\1/g' | sort | uniq -c | sort -n
 fd:dir1:
   do: exec
   desc: find a name pattern, and show counts per 1st level sub-directory. Ignore .git
-  command: find \! -path '*/.git/*' -type f -name '<<name>>' | awk -F '/' '{print $2}' | sort | uniq -c | sort -n
+  command: find . \! -path '*/.git/*' -type f -name '<<name>>' | awk -F '/' '{print $2}' | sort | uniq -c | sort -n
 fd:dir2:
   do: exec
   desc: find a name pattern, and show counts per 2nd level sub-directory. Ignore .git
-  command: find \! -path '*/.git/*' -type f -name '<<name>>' | awk -F '/' '{print $2"/"$3}' | sort | uniq -c | sort -n
+  command: find . \! -path '*/.git/*' -type f -name '<<name>>' | awk -F '/' '{print $2"/"$3}' | sort | uniq -c | sort -n
 fd:dir3:
   do: exec
   desc: find a name pattern, and show counts per 3rd level sub-directory. Ignore .git
-  command: find \! -path '*/.git/*' -type f -name '<<name>>' | awk -F '/' '{print $2"/"$3"/"$4}' | sort | uniq -c | sort -n
+  command: find . \! -path '*/.git/*' -type f -name '<<name>>' | awk -F '/' '{print $2"/"$3"/"$4}' | sort | uniq -c | sort -n
 fd:poor:name:
   do: exec
   desc: find poor pathnames
-  command: find -exec bash -c 'for name do [[ "$name" =~ ^[a-zA-Z0-9./_-]*$ ]] || echo $name; done' bash {} +
+  command: find . -exec bash -c 'for name do [[ "$name" =~ ^[a-zA-Z0-9./_-]*$ ]] || echo $name; done' bash {} +
 fd:x:
   do: exec
   desc: Find executables. Ignore .git
-  command: find \! -path '*/.git/*' -type f -executable
+  command: find . \! -path '*/.git/*' -type f -executable
 fd:em:
   do: exec
   desc: find empty files or directories. Ignore .git
-  command: find \! -path '*/.git/*' -empty <<options( ,-delete)>>
+  command: find . \! -path '*/.git/*' -empty <<options( ,-delete)>>
 # aux. files
 fd:conflict:
   do: exec
   desc: find Dropbox's conflicted copy.
-  command: find \! -path '*/.dropbox.cache/*' -name '*conflicted copy*' <<options( ,-delete)>>
+  command: find . \! -path '*/.dropbox.cache/*' -name '*conflicted copy*' <<options( ,-delete)>>
 fd:dss:
   do: exec
   desc: find mac's DS_Store files.
-  command: find \( -name '._.DS_Store' -o -name '.DS_Store' \) <<options( ,-delete)>>
+  command: find . \( -name '._.DS_Store' -o -name '.DS_Store' \) <<options( ,-delete)>>
 fd:mac:dump:
   do: exec
   desc: find mac's auto-created files on external drives and delete them.
-  command: find \( -name '.Trashes' -o -name '.fseventsd' -o -name '.Spotlight-V100' \) -exec sudo rm -rf {} +
+  command: find . \( -name '.Trashes' -o -name '.fseventsd' -o -name '.Spotlight-V100' \) -exec sudo rm -rf {} +
 fd:ncol:
   do: exec
   desc: find number of columns for files with given pattern.
-  command: find \! -path '*/.git/*' -type f -name '<<name>>' -exec awk '{print NF}' {} + | sort -nu
+  command: find . \! -path '*/.git/*' -type f -name '<<name>>' -exec awk '{print NF}' {} + | sort -nu
 fd:cat:all:
   do: exec
   desc: find files of a name pattern and cat all
-  command: find \! -path '*/.git/*' -type f -name '<<name>>' -exec <<options(cat,less)>> {} +
+  command: find . \! -path '*/.git/*' -type f -name '<<name>>' -exec <<options(cat,less)>> {} +
 fd:cat:dir:
   do: exec
   desc: find files with extension in directories at a certain level and cat & sort together into a file with the same extension besides the directories.
-  command: find \! -path '*/.git/*' -mindepth <<level>> -maxdepth <<level>> -type d -exec bash -c 'find $0 -name "*.<<extension>>" | xargs cat | sort > $0.<<extension>>' {} \;
+  command: find . \! -path '*/.git/*' -mindepth <<level>> -maxdepth <<level>> -type d -exec bash -c 'find $0 -name "*.<<extension>>" | xargs cat | sort > $0.<<extension>>' {} \;
 fd:gp:
   do: exec
   desc: find files of a name pattern and grep another pattern from them
-  command: find \! -path '*/.git/*' -type f -name '<<name>>' -exec grep --color=auto -HnE '<<pattern>>' {} +
+  command: find . \! -path '*/.git/*' -type f -name '<<name>>' -exec grep --color=auto -HnE '<<pattern>>' {} +
 fd:gp:time:ram:
   do: exec
   desc: assume <<pattern>> finds output of GNU time, get the row of max. mem. used, cut and sort by the numbers.
-  command: find \! -path '*/.git/*' -type f -name '<<name>>' -exec gre --color=autop -h 'Maximum resident set size' {} + | cut -d' ' -f 6 | sort -n
+  command: find . \! -path '*/.git/*' -type f -name '<<name>>' -exec gre --color=autop -h 'Maximum resident set size' {} + | cut -d' ' -f 6 | sort -n
 fd:gp:time:
   do: exec
   desc: assume <<pattern>> finds output of GNU time, get the row of time used, cut and sort by the time.
-  command: find \! -path '*/.git/*' -type f -name '<<name>>' -exec grep --color=auto -h 'Elapsed (wall clock) time' {} + | cut -d' ' -f 8 | sort -V
+  command: find . \! -path '*/.git/*' -type f -name '<<name>>' -exec grep --color=auto -h 'Elapsed (wall clock) time' {} + | cut -d' ' -f 8 | sort -V
 # file stat
 fd:size:
   do: exec
   desc: find files with a name pattern and print its size
-  command: find \! -path '*/.git/*' -type f -name '<<name>>' -printf "%kKB %p\n" | sort -h
+  command: find . \! -path '*/.git/*' -type f -name '<<name>>' -printf "%kKB %p\n" | sort -h
 # text processing
 fd:level:sed:
   do: exec
   desc: find files with a name pattern at a certain level and run inplace sed substitution on it.
-  command: find \! -path '*/.git/*' -type f -maxdepth <<level>> -mindepth <<level>> -name "<<name>>" -exec sed -i 's/<<from>>/<<to>>/g' {} +
+  command: find . \! -path '*/.git/*' -type f -maxdepth <<level>> -mindepth <<level>> -name "<<name>>" -exec sed -i 's/<<from>>/<<to>>/g' {} +
 fd:py:def:
   do: exec
   desc: find all function definitions in *.py files and print the freq. per function name
-  command: find \! -path '*/.git/*' -type f -name '*.py' -exec grep -ohE 'def[ ]+([^(]+)\(' {} + | sort | uniq -c | sort -n
+  command: find . \! -path '*/.git/*' -type f -name '*.py' -exec grep -ohE 'def[ ]+([^(]+)\(' {} + | sort | uniq -c | sort -n
 fd:sed:linefeed:
   do: exec
   desc: Convert carriage return (e.g. from Windows) to line feed
-  command: find \! -path '*/.git/*' -type f -name '<<name>>' -exec sed -i -e 's/\r\n/\n/g' -e 's/\r/\n/g' {} +
+  command: find . \! -path '*/.git/*' -type f -name '<<name>>' -exec sed -i -e 's/\r\n/\n/g' -e 's/\r/\n/g' {} +
 fd:md5:
   do: exec
   desc: save md5sum of all files into md5sum.txt
-  command: find \! -path '*/.git/*' -type f \! -name 'md5sum.txt' -exec md5sum {} + > md5sum.txt
+  command: find . \! -path '*/.git/*' -type f \! -name 'md5sum.txt' -exec md5sum {} + > md5sum.txt
 fd:tar:xz:ext:
   do: exec
   desc: find files with a name pattern and compress them as .tar.xz with level 9
-  command: find \! -path '*/.git/*' -type f -name '*.<<ext>>' | XZ_OPT=-9 tar -cJf $(basename $(pwd)).<<ext>>.tar.xz -T -
+  command: find . \! -path '*/.git/*' -type f -name '*.<<ext>>' | XZ_OPT=-9 tar -cJf $(basename $(pwd)).<<ext>>.tar.xz -T -
 fd:tar:xz:txt:
   do: exec
   desc: find text files with a predefined name pattern and compress them as .txt.tar.xz with level e9
-  command: find \! -path '*/.git/*' -type f -regextype posix-egrep -regex ".*/.*(-stdout_[[:digit:]]*|-stderr_[[:digit:]]*|makefile|.txt|.err|.csv|.out|.time|.in)" | XZ_OPT=-e9 tar -cJf $(basename $(pwd)).txt.tar.xz -T -
+  command: find . \! -path '*/.git/*' -type f -regextype posix-egrep -regex ".*/.*(-stdout_[[:digit:]]*|-stderr_[[:digit:]]*|makefile|.txt|.err|.csv|.out|.time|.in)" | XZ_OPT=-e9 tar -cJf $(basename $(pwd)).txt.tar.xz -T -
 fd:make:clean:
   do: exec
   desc: find all makefiles in any sub-directories and run 'make clean'
   #  && make clean && cd -
-  command: find -type f \( -name GNUmakefile -o -name makefile -o -name Makefile \) -exec bash -c 'for makefile do cd "${makefile%/*}"; make -f "${makefile##*/}" clean; cd -; done' bash {} +
+  command: find . -type f \( -name GNUmakefile -o -name makefile -o -name Makefile \) -exec bash -c 'for makefile do cd "${makefile%/*}"; make -f "${makefile##*/}" clean; cd -; done' bash {} +
 
 # grep #########################################################################
 gp:
