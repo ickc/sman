@@ -49,3 +49,7 @@ zfs:space:
   do: exec
   desc: show zfs space usage, sort by snapshot usage
   command: zfs list -o space | sort -hk4
+zfs:size:
+  do: exec
+  desc: show zfs dataset sizes in bytes
+  command: zfs get -o name,value -Hp used
