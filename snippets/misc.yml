@@ -12,4 +12,4 @@ gitit:serve:
 routine:
   do: exec
   desc: perform routine update on git repos
-  command: cd ~/git && s r git:batch 2 1; cd $ZPREZTODIR && git pull && git submodule update --init --recursive; cd ~/.sman && git pull; if [[ `uname` == Darwin ]]; then ~/git/private/my-rsync/rsync-data100.sh; elif [[ `hostname` == lpc-mini ]]; then s r bolo2gh; s r bb2gh; fi
+  command: cd ~/git && s r git:batch 2 1; zprezto-update; cd ~/.sman && git pull; if [[ `uname` == Darwin ]]; then ~/git/private/my-rsync/rsync-data100.sh; elif [[ `hostname` == lpc-mini ]]; then s r bolo2gh; s r bb2gh; fi
