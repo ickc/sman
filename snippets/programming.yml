@@ -15,6 +15,15 @@ python:rm:weave:
   desc: remove scipy weave's cache
   command: rm -rf ~/.cache/scipy/ ~/.cache/weave/
 
+python:autopep8:
+  do: exec
+  command: autopep8 <<path>> --recursive --in-place --pep8-passes 2000 --verbose <<option( , --aggressive --aggressive)>> --ignore E501,E265
+
+python:isort:
+  do: exec
+  desc: sort all import statements
+  command: isort --recursive .
+
 fd:rm:ipycp:
   do: exec
   desc: find and remove all .ipynb_checkpoints
@@ -33,10 +42,6 @@ fd:ipy:clear:
 jupyter:nb:
   do: exec
   command: jupyter notebook --no-browser --port=8989
-
-autopep8:
-  do: exec
-  command: autopep8 <<path>> --recursive --in-place --pep8-passes 2000 --verbose <<option( , --aggressive --aggressive)>> --ignore E501,E265
 
 ipcluster:
   do: exec
