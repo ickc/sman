@@ -32,7 +32,7 @@ fd:rm:ipycp:
 fd:rm:py:aux:
   do: exec
   desc: remove python's auxiliary files
-  command: find . \( -type f -name '*.py[co]' -o -type d -name '__pycache__' \) -delete
+  command: find . \( -type f -name '*.py[co]' -o -type d -name '__pycache__' -o -name '*.egg-info' \) -exec rm -rf {} +
 
 fd:ipy:clear:
   do: exec
