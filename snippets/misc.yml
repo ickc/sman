@@ -13,3 +13,9 @@ routine:
   do: exec
   desc: perform routine update on git repos
   command: cd ~/git && s r git:batch 2 1; zprezto-update; cd ~/.sman && git pull; if [[ `uname` == Darwin ]]; then ~/git/private/my-rsync/rsync-data100.sh; elif [[ `hostname` == lpc-mini ]]; then s r bolo2gh; s r bb2gh; fi
+
+# cleanup
+clean:all:
+  do: exec
+  desc: clean all common auxiliary files
+  command: s r dss 2; s r conflict 2; s r ipycp; s r fd:rm:py:aux
