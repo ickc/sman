@@ -88,6 +88,10 @@ fd:gp:
   do: exec
   desc: find files of a name pattern and grep another pattern from them
   command: find . \! -path '*/.git/*' -type f -name '<<name>>' -exec grep --color=auto -HnE '<<pattern>>' {} +
+fd:gp:match:
+  do: exec
+  desc: find files of a name pattern and grep another pattern from them, show match only, unique.
+  command: find . \! -path '*/.git/*' -type f -name '<<name>>' -exec grep -ho '<<pattern>>' {} + | sort -u
 fd:gp:time:ram:
   do: exec
   desc: assume <<pattern>> finds output of GNU time, get the row of max. mem. used, cut and sort by the numbers.
