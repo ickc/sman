@@ -135,11 +135,11 @@ ssh:key:
 lpc:git:nfs:
   do: exec
   desc: mount NFS
-  command: sudo mkdir -p /Volumes/git && sudo mount 128.32.117.118:/home/kolen/git /Volumes/git
+  command: sudo mkdir -p /Volumes/git && sudo mount 128.32.117.111:/home/kolen/git /Volumes/git
 lpc:raid:nfs:
   do: exec
   desc: mount NFS
-  command: sudo mkdir -p /Volumes/raid24 && sudo mount 128.32.117.118:/mnt/raid24 /Volumes/raid24
+  command: sudo mkdir -p /Volumes/raid24 && sudo mount 128.32.117.111:/mnt/raid24 /Volumes/raid24
 
 # wakeonlan
 wake:lpc:
