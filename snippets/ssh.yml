@@ -59,8 +59,8 @@ ucbcmb:
 
 ssh:tunnel:
   do: exec
-  desc: tunnel a port from client to server (-R to reverse). 8080-snakeviz; 8989-Juptyer; 8096-emby; 52698-rmate.
-  command: ssh -N -<<direction(L,R)>> localhost:<<port(8080,8989,8096,52698)>>:localhost:<<port>> <<URL(khcheung@cori.nersc.gov,khcheung@edison.nersc.gov,khcheung@gordita.physics.berkeley.edu)>>
+  desc: tunnel a port from client to server.
+  command: ssh -N -<<direction(L,R)#R to reverse>> localhost:<<port(8080,8989,8096,52698)#8080-snakeviz; 8989-Juptyer; 8096-emby; 52698-rmate.>>:localhost:<<port>> <<URL(khcheung@cori.nersc.gov,khcheung@edison.nersc.gov,khcheung@gordita.physics.berkeley.edu)>>
 
 ssh:co:sqs:
   do: exec
@@ -142,7 +142,8 @@ lpc:raid:nfs:
   command: sudo mkdir -p /Volumes/raid24 && sudo mount 128.32.117.111:/mnt/raid24 /Volumes/raid24
 
 # wakeonlan
-wake:lpc:
+wake:
   do: exec
-  desc: wake up lpc over LAN
-  command: wakeonlan 1c:1b:0d:ec:19:de
+  desc: wake on LAN
+  command: |
+    wakeonlan <<address(1c:1b:0d:ec:19:de)#1: lpc>> || wol <<address>>
