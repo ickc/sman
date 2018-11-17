@@ -6,3 +6,7 @@ install:neofetch:conf:
   do: exec
   desc: install custom neofetch config file
   command: wget -q https://github.com/ickc/neofetch-config/raw/kolen/config.conf -O ${HOME}/.config/neofetch/config.conf
+install:github-release:
+  do: exec
+  desc: install github-release
+  command: go get github.com/aktau/github-release
