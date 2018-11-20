@@ -10,3 +10,7 @@ install:github-release:
   do: exec
   desc: install github-release
   command: go get github.com/aktau/github-release
+install:exa:
+  do: exec
+  desc: install exa in current directory. Linux only. Check update from https://the.exa.website/#installation
+  command: url='https://github.com/ogham/exa/releases/download/v0.8.0/exa-linux-x86_64-0.8.0.zip'; zipfilename=${url##*/}; filename=${zipfilename%-*}; wget "$url"; unzip "$zipfilename"; rm -f "$zipfilename"; mv "$filename" exa
