@@ -52,7 +52,7 @@ brew:lsv:
 brew:cleanup:
   do: exec
   desc: force cleanup and clear cache
-  command: brew cleanup --force -s && rm -rf $(brew --cache)
+  command: brew cleanup -s && rm -rf $(brew --cache)
 # linux apt
 apt:update:
   do: exec
