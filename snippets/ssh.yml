@@ -30,7 +30,7 @@ gsisp:
 lpc:
   do: exec
   desc: connect to lpc
-  command: <<command(ssh,mosh)>> kolen@<<host(128.32.117.111,172.22.2.7)>>
+  command: <<command(ssh,mosh)>> kolen@<<host(128.32.117.80,172.22.2.7)>>
 3650:
   do: exec
   desc: connect to 3650
@@ -135,11 +135,11 @@ ssh:key:
 lpc:git:nfs:
   do: exec
   desc: mount NFS
-  command: sudo mkdir -p /Volumes/git && sudo mount 128.32.117.111:/home/kolen/git /Volumes/git
+  command: sudo mkdir -p /Volumes/git && sudo mount 128.32.117.80:/home/kolen/git /Volumes/git
 lpc:raid:nfs:
   do: exec
   desc: mount NFS
-  command: sudo mkdir -p /Volumes/raid24 && sudo mount 128.32.117.111:/mnt/raid24 /Volumes/raid24
+  command: sudo mkdir -p /Volumes/raid24 && sudo mount 128.32.117.80:/mnt/raid24 /Volumes/raid24
 
 # wakeonlan
 wake:
