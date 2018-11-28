@@ -122,6 +122,10 @@ fd:md5:
   do: exec
   desc: save md5sum of all files into md5sum.txt
   command: find . \! -path '*/.git/*' -type f \! -name 'md5sum.txt' -exec md5sum {} + > md5sum.txt
+fd:check:md5:
+  do: exec
+  desc: find all md5sum.txt and enter its directory to check all files
+  command: find -name 'md5sum.txt' -exec bash -c 'cd ${0%/*}; md5sum -c md5sum.txt' {} \;
 fd:tar:xz:ext:
   do: exec
   desc: find files with a name pattern and compress them as .tar.xz with level 9
