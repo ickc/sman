@@ -121,7 +121,7 @@ fd:sed:linefeed:
 fd:md5:
   do: exec
   desc: save md5sum of all files into md5sum.txt
-  command: find . \! -path '*/.git/*' -type f \! -name 'md5sum.txt' -exec md5sum {} + > md5sum.txt
+  command: find . \! -path '*/.git/*' -type f \! -name 'md5sum.txt' -exec md5sum {} + | sort > md5sum.txt
 fd:check:md5:
   do: exec
   desc: find all md5sum.txt and enter its directory to check all files
