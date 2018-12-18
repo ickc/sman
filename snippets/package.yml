@@ -77,6 +77,10 @@ pm:rm:
   do: exec
   desc: remove a package using pacman
   command: sudo pacman -Rs <<package>>
+pm:clean:
+  do: exec
+  desc: clean all cache
+  command: sudo pacman -Scc
 
 aur:install:
   do: exec
