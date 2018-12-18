@@ -3,6 +3,14 @@ fd:ext:
   do: exec
   desc: show counts of all extensions inside current directory, if no extension, show name instead. Ignore .git
   command: find . \! -path '*/.git/*' -type f | sed -E 's/^.*([./][^./]+)$/\1/' | sort | uniq -c | sort -n
+fd:longext:
+  do: exec
+  desc: similar to fd:ext, but treat the first . as the beginning of ext e.g. .tar.gz. No extension is regarded as empty string
+  command: find . \! -path '*/.git/*' -type f | sed -E 's/^.*\/[^./]*([^/]*)$/\1/' | sort | uniq -c | sort -n
+fd:part:ext:
+  do: exec
+  desc: similar to fd:ext, but ignoring .part
+  command: find . \! -path '*/.git/*' -type f | grep -o -E '[./][^./]+\.part$' | sort | uniq -c | sort -n
 fd:name:
   do: exec
   desc: find a name pattern, show counts of filenames. Ignore .git
