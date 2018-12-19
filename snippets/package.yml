@@ -77,6 +77,10 @@ pm:rm:
   do: exec
   desc: remove a package using pacman
   command: sudo pacman -Rs <<package>>
+pm:ls:local:
+  do: exec
+  desc: list locally installed packages (likely from AUR)
+  command: pacman -Qm
 
 aur:install:
   do: exec
