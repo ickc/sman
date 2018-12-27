@@ -6,7 +6,7 @@ ssh:co:
   command: ssh khcheung@cori.nersc.gov
 mosh:co:
   do: exec
-  command: mosh khcheung@cori<<host(03)>>-224.nersc.gov
+  command: mosh khcheung@cori<<host(01)>>-224.nersc.gov
 ssh:go:
   do: exec
   command: ssh khcheung@gordita.physics.berkeley.edu
