@@ -1,12 +1,16 @@
+ssh:nersc:gen:
+  do: exec
+  desc: generate NERSC ssh key
+  command: ~/git/fork/NERSC-MFA/sshproxy.sh -u khcheung
 ssh:ed:
   do: exec
-  command: ssh khcheung@edison.nersc.gov
+  command: ssh -i ~/.ssh/nersc khcheung@edison.nersc.gov
 ssh:co:
   do: exec
-  command: ssh khcheung@cori.nersc.gov
+  command: ssh -i ~/.ssh/nersc khcheung@cori.nersc.gov
 mosh:co:
   do: exec
-  command: mosh khcheung@cori<<host(01)>>-224.nersc.gov
+  command: mosh --ssh 'ssh -i ~/.ssh/nersc' khcheung@cori<<host(01)>>-224.nersc.gov
 ssh:go:
   do: exec
   command: ssh khcheung@gordita.physics.berkeley.edu
@@ -63,30 +67,30 @@ ucbcmb:
 ssh:tunnel:
   do: exec
   desc: tunnel a port from client to server.
-  command: ssh -N -<<direction(L,R)#R to reverse>> localhost:<<port(8080,8989,8096,52698)#8080-snakeviz; 8989-Juptyer; 8096-emby; 52698-rmate.>>:localhost:<<port>> <<URL(khcheung@cori.nersc.gov,khcheung@edison.nersc.gov,khcheung@gordita.physics.berkeley.edu)>>
+  command: ssh <<identity(,-i ~/.ssh/nersc)>> -N -<<direction(L,R)#R to reverse>> localhost:<<port(8080,8989,8096,52698)#8080-snakeviz; 8989-Juptyer; 8096-emby; 52698-rmate.>>:localhost:<<port>> <<URL(khcheung@cori.nersc.gov,khcheung@edison.nersc.gov,khcheung@gordita.physics.berkeley.edu)>>
 
 ssh:co:sqs:
   do: exec
-  command: ssh khcheung@cori.nersc.gov sqs
+  command: ssh -i ~/.ssh/nersc khcheung@cori.nersc.gov sqs
 ssh:ed:sqs:
   do: exec
-  command: ssh khcheung@edison.nersc.gov '/usr/common/software/python/3.6-anaconda-4.4/bin/python -E /usr/common/software/bin/sqs'
+  command: ssh -i ~/.ssh/nersc khcheung@edison.nersc.gov '/usr/common/software/python/3.6-anaconda-4.4/bin/python -E /usr/common/software/bin/sqs'
 
 rsync:
   do: exec
   command: rsync -avmz <<DELETE( ,--delete)>> --stats --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore <<inDir>> <<outDir>>
 rsync:to:co:
   do: exec
-  command: rsync -avmz <<DELETE( ,--delete)>> --stats -e ssh --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore <<inDir>> khcheung@cori.nersc.gov:<<outDir>>
+  command: rsync -avmz <<DELETE( ,--delete)>> --stats -e 'ssh -i ~/.ssh/nersc' --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore <<inDir>> khcheung@cori.nersc.gov:<<outDir>>
 rsync:fm:co:
   do: exec
-  command: rsync -avmz <<DELETE( ,--delete)>> --stats -e ssh --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore khcheung@cori.nersc.gov:<<inDir>> <<outDir>>
+  command: rsync -avmz <<DELETE( ,--delete)>> --stats -e 'ssh -i ~/.ssh/nersc' --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore khcheung@cori.nersc.gov:<<inDir>> <<outDir>>
 rsync:to:ed:
   do: exec
-  command: rsync -avmz <<DELETE( ,--delete)>> --stats -e ssh --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore <<inDir>> khcheung@edison.nersc.gov:<<outDir>>
+  command: rsync -avmz <<DELETE( ,--delete)>> --stats -e 'ssh -i ~/.ssh/nersc' --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore <<inDir>> khcheung@edison.nersc.gov:<<outDir>>
 rsync:fm:ed:
   do: exec
-  command: rsync -avmz <<DELETE( ,--delete)>> --stats -e ssh --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore khcheung@edison.nersc.gov:<<inDir>> <<outDir>>
+  command: rsync -avmz <<DELETE( ,--delete)>> --stats -e 'ssh -i ~/.ssh/nersc' --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore khcheung@edison.nersc.gov:<<inDir>> <<outDir>>
 
 rsync:to:go:
   do: exec
@@ -104,10 +108,10 @@ rsync:fm:
 
 sshfs:co:
   do: exec
-  command: sudo sshfs -o IdentityFile=~/.ssh/id_rsa,allow_other,defer_permissions,volname=cori khcheung@cori.nersc.gov:/ /mnt/cori/
+  command: sudo sshfs -o IdentityFile=~/.ssh/nersc,allow_other,defer_permissions,volname=cori khcheung@cori.nersc.gov:/ /mnt/cori/
 sshfs:ed:
   do: exec
-  command: sudo sshfs -o IdentityFile=~/.ssh/id_rsa,allow_other,defer_permissions,volname=edison khcheung@edison.nersc.gov:/ /mnt/edison/
+  command: sudo sshfs -o IdentityFile=~/.ssh/nersc,allow_other,defer_permissions,volname=edison khcheung@edison.nersc.gov:/ /mnt/edison/
 sshfs:go:
   do: exec
   command: sudo sshfs -o IdentityFile=~/.ssh/id_rsa,allow_other,defer_permissions,volname=gordita khcheung@gordita.physics.berkeley.edu:/ /mnt/gordita/
