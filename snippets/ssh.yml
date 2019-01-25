@@ -1,7 +1,7 @@
 ssh:nersc:gen:
   do: exec
   desc: generate NERSC ssh key
-  command: ~/git/fork/NERSC-MFA/sshproxy.sh -u khcheung
+  command: . activate all3-intel && s r dautil-py && ~/git/fork/NERSC-MFA/sshproxy.sh -u khcheung
 ssh:ed:
   do: exec
   command: ssh -i ~/.ssh/nersc khcheung@edison.nersc.gov
