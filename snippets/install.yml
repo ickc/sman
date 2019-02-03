@@ -2,6 +2,10 @@ install:rmate:
   do: exec
   desc: install bash version of rmate
   command: wget -O $HOME/.local/bin/rmate https://raw.github.com/aurora/rmate/master/rmate && chmod +x $HOME/.local/bin/rmate
+install:neofetch:
+  do: exec
+  desc: install neofetch to ~/.local/bin
+  command: wget -O $HOME/.local/bin/neofetch https://raw.githubusercontent.com/dylanaraps/neofetch/master/neofetch && chmod +x $HOME/.local/bin/neofetch
 install:neofetch:conf:
   do: exec
   desc: install custom neofetch config file
