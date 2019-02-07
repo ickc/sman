@@ -35,3 +35,8 @@ sbatch:
   do: exec
   desc: sbatch in parallel
   command: find . -name '*.sh' | sort | xargs -i -n1 -P30 bash -c 'sbatch $0; sleep 5' {}
+
+otp:
+  do: exec
+  desc: generate totp
+  command: . activate all3-intel && s r dautil-py && totp.py ~/.nersc.totp
