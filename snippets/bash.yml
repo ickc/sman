@@ -273,6 +273,10 @@ ip:local:
   do: exec
   desc: show local IP address
   command: ifconfig |grep inet
+ip:public:
+  do: exec
+  desc: check public IP (even if it is behind another router)
+  command: curl https://ipinfo.io/ip
 
 # disks
 badblocks:
