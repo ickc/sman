@@ -211,14 +211,10 @@ chgrp:
   do: exec
   desc: Change group and add sticky bit recursively
   command: chgrp -R <<group name>> . && chmod -R g+s .
-permission:640:
+permission:
   do: exec
   desc: recursively change ownership, add sticky bit, etc.
-  command: chown -R <<user>> . && chgrp -R <<group>> . && find . -type d -exec chmod 2750 {} + && find . -type f -exec chmod 640 {} +
-permission:644:
-  do: exec
-  desc: recursively change ownership, add sticky bit, etc.
-  command: chown -R <<user>> . && chgrp -R <<group>> . && find . -type d -exec chmod 2755 {} + && find . -type f -exec chmod 644 {} +
+  command: <<sudo( ,sudo)>> chown -R <<user(kolen,khcheung)>> . && <<sudo>> chgrp -R <<group(kolen,khcheung,polar)>> . && find . -type d -exec <<sudo>> chmod <<permDir(2750,2755)>> {} + && find . -type f -exec <<sudo>> chmod <<permFile(640,644)>> {} +
 # File systems
 df:
   do: exec
