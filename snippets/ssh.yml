@@ -49,7 +49,7 @@ icsx:
 server:
   do: exec
   desc: connect to server
-  command: <<command(ssh,mosh)>> kolen@<<host(192.168.1.116,172.22.2.8)>>
+  command: <<command(ssh,mosh)>> kolen@<<host(192.168.1.119,172.22.2.8)>>
 desktop:
   do: exec
   desc: connect to desktop
