@@ -75,16 +75,16 @@ gpg:aurutils:
 
 pm:upgrade:
   do: exec
-  desc: pacman upgrade all
-  command: sudo pacman -Syu
+  desc: yay upgrade all
+  command: yay -Syu --sudoloop --nomakepkgconf --noanswerclean --noanswerdiff --noansweredit --noanswerupgrade --nocleanmenu --nodiffmenu --noeditmenu --noupgrademenu --norebuild --noredownload
 pm:rm:
   do: exec
-  desc: remove a package using pacman
-  command: sudo pacman -Rs <<package>>
+  desc: remove a package using yay
+  command: yay -Rs <<package>>
 pm:ls:local:
   do: exec
   desc: list locally installed packages (likely from AUR)
-  command: pacman -Qm
+  command: yay -Qm
 
 aur:install:
   do: exec
