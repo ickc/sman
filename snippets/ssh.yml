@@ -135,8 +135,8 @@ sshfs:pgrep:
 
 ssh:key:
   do: exec
-  desc: transfer ssh public key from local to remote
-  command: cat ~/.ssh/id_rsa.pub | ssh <<user(kolen,khcheung)>>@<<host>> 'cat >> .ssh/authorized_keys'
+  desc: transfer ssh public key from local to remote as authorized keys
+  command: ssh <<user(kolen,khcheung)>>@<<host(bolo.berkeley.edu)>> 'cat >> ~/.ssh/authorized_keys' < ~/.ssh/id_rsa.pub
 
 # mount lpc
 lpc:git:nfs:
