@@ -57,7 +57,7 @@ desktop:
 mbp:
   do: exec
   desc: connect to mbp
-  command: <<command(ssh,mosh)>> kolen@<<host(192.168.1.106,172.22.2.4)>>
+  command: <<command(ssh,mosh)>> kolen@<<host(192.168.1.109,172.22.2.4)>>
 ucbcmb:
   do: exec
   desc: connect to ucbcmb
