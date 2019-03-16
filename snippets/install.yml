@@ -18,3 +18,7 @@ install:exa:
   do: exec
   desc: install exa in current directory. Linux only. Check update from https://the.exa.website/#installation
   command: url='https://github.com/ogham/exa/releases/download/v0.8.0/exa-linux-x86_64-0.8.0.zip'; zipfilename=${url##*/}; filename=${zipfilename%-*}; wget "$url"; unzip "$zipfilename"; rm -f "$zipfilename"; mv "$filename" exa
+install:marky:
+  do: exec
+  desc: install marky a.k.a. heckyesmarkdown
+  command: wget -q https://gist.githubusercontent.com/ttscoff/2960951/raw/e35f8e8515be55014d647a7e49ec337155e799cf/marky.rb  -O "$HOME/.local/bin/marky.rb"
