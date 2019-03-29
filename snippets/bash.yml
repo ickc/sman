@@ -304,4 +304,4 @@ redirect:
   do: exec
   desc: redirect stdout, stderr seperately while also print to terminal
   command: |
-    {{<<command>>} > >(tee <<stdoutfile>>.out)} 2> >(tee <<stderrfile>>.err)
+    {{<<command>> <<outfile>>} > >(tee <<outfile>>.out)} 2> >(tee <<outfile>>.err)
