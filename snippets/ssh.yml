@@ -53,7 +53,7 @@ server:
 desktop:
   do: exec
   desc: connect to desktop
-  command: <<command(ssh,mosh)>> kolen@<<host(192.168.1.100,172.22.2.3)>>
+  command: <<command(ssh,mosh)>> kolen@<<host(192.168.1.103,172.22.2.3)>>
 mbp:
   do: exec
   desc: connect to mbp
