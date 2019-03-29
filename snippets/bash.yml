@@ -299,3 +299,9 @@ path:stat:
   do: exec
   desc: print stat of PATH, useful for inspecting duplicated paths
   command: echo $PATH | tr ':' '\n' | sort | uniq -c | sort -n
+
+redirect:
+  do: exec
+  desc: redirect stdout, stderr seperately while also print to terminal
+  command: |
+    {{<<command>>} > >(tee <<stdoutfile>>.out)} 2> >(tee <<stderrfile>>.err)
