@@ -12,7 +12,8 @@ gitit:serve:
 routine:
   do: exec
   desc: perform routine update on git repos
-  command: cd ~/git && s r git:batch 2 1; cd ~/.sman && git pull; zprezto-update; if [[ `hostname` == lpc-mini ]]; then s r bolo2gh; s r bb2gh; fi
+  command: |
+    [[ `hostname` == lpc-mini ]] && s r bolo2gh && s r bb2gh; cd ~/git && s r git:batch 2 1; cd ~/.sman && git pull; zprezto-update
 
 # cleanup
 clean:all:
