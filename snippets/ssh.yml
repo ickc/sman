@@ -41,7 +41,7 @@ lpc:
 3650:
   do: exec
   desc: connect to 3650
-  command: <<command(ssh,mosh)>> kolen@<<host(128.32.117.119,172.22.2.5)>>
+  command: <<command(ssh,mosh)>> kolen@<<host(128.32.117.95,172.22.2.5)>>
 icsx:
   do: exec
   desc: connect to icsx
