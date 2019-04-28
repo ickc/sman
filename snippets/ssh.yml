@@ -37,11 +37,11 @@ gsisp:
 lpc:
   do: exec
   desc: connect to lpc
-  command: <<command(ssh,mosh)>> kolen@<<host(128.32.117.125,172.22.2.7)>>
+  command: <<command(ssh,mosh)>> kolen@<<host(lpc-mini.dyn.berkeley.edu,172.22.2.7)>>
 3650:
   do: exec
   desc: connect to 3650
-  command: <<command(ssh,mosh)>> kolen@<<host(128.32.117.95,172.22.2.5)>>
+  command: <<command(ssh,mosh)>> kolen@<<host(kolen-3650-leconte.dyn.berkeley.edu,172.22.2.5)>>
 icsx:
   do: exec
   desc: connect to icsx
@@ -61,7 +61,7 @@ mbp:
 ucbcmb:
   do: exec
   desc: connect to ucbcmb
-  command: ssh ucbcmb@128.32.124.219
+  command: ssh ucbcmb@cafeconleche.dyn.berkeley.edu
 
 
 ssh:tunnel:
@@ -142,11 +142,11 @@ ssh:key:
 lpc:git:nfs:
   do: exec
   desc: mount NFS
-  command: sudo mkdir -p /Volumes/git && sudo mount 128.32.117.125:/home/kolen/git /Volumes/git
+  command: sudo mkdir -p /Volumes/git && sudo mount lpc-mini.dyn.berkeley.edu:/home/kolen/git /Volumes/git
 lpc:raid:nfs:
   do: exec
   desc: mount NFS
-  command: sudo mkdir -p /Volumes/raid24 && sudo mount 128.32.117.125:/mnt/raid24 /Volumes/raid24
+  command: sudo mkdir -p /Volumes/raid24 && sudo mount lpc-mini.dyn.berkeley.edu:/mnt/raid24 /Volumes/raid24
 
 # wakeonlan
 wake:
