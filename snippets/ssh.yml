@@ -2,79 +2,10 @@ ssh:nersc:gen:
   do: exec
   desc: generate NERSC ssh key
   command: . activate all3-intel && s r dautil-py && ~/git/fork/NERSC-MFA/sshproxy.sh -u khcheung
-ssh:ed:
-  do: exec
-  command: ssh -i ~/.ssh/nersc khcheung@edison.nersc.gov
-ssh:co:
-  do: exec
-  command: ssh -i ~/.ssh/nersc khcheung@cori.nersc.gov
-mosh:co:
-  do: exec
-  command: mosh --ssh 'ssh -i ~/.ssh/nersc' khcheung@cori<<host(01)>>-224.nersc.gov
-ssh:go:
-  do: exec
-  command: ssh khcheung@gordita.physics.berkeley.edu
-ssh:to:
-  do: exec
-  desc: ssh to Tostada
-  command: ssh khcheung@tostada1.physics.berkeley.edu
-ssh:bolo:
-  do: exec
-  desc: ssh to bolowiki
-  command: ssh khcheung@bolowiki.berkeley.edu
-ssh:sp:
-  do: exec
-  desc: ssh to Stampede from XSEDE
-  command: ssh tg839817@stampede.tacc.xsede.org
-ssh:xd:
-  do: exec
-  command: ssh -l khcheung login.xsede.org
-gsisp:
-  do: exec
-  command: gsissh stampede
-
-# ssh/mosh for private ip
-lpc:
-  do: exec
-  desc: connect to lpc
-  command: <<command(ssh,mosh)>> kolen@<<host(lpc-mini.dyn.berkeley.edu,172.22.2.7)>>
-3650:
-  do: exec
-  desc: connect to 3650
-  command: <<command(ssh,mosh)>> kolen@<<host(kolen-3650-leconte.dyn.berkeley.edu,172.22.2.5)>>
-icsx:
-  do: exec
-  desc: connect to icsx
-  command: <<command(ssh,mosh)>> kolen@<<host(2607:f140:2:0:8644:65db:6121:ab01,172.22.2.2)>>
-server:
-  do: exec
-  desc: connect to server
-  command: <<command(ssh,mosh)>> kolen@<<host(192.168.1.8,172.22.2.8)>>
-desktop:
-  do: exec
-  desc: connect to desktop
-  command: <<command(ssh,mosh)>> kolen@<<host(192.168.1.3,172.22.2.3)>>
-mbp:
-  do: exec
-  desc: connect to mbp
-  command: <<command(ssh,mosh)>> kolen@<<host(192.168.1.4,172.22.2.4)>>
-ucbcmb:
-  do: exec
-  desc: connect to ucbcmb
-  command: ssh ucbcmb@cafeconleche.dyn.berkeley.edu
-
-
 ssh:tunnel:
   do: exec
   desc: tunnel a port from client to server.
   command: ssh <<identity( ,-i ~/.ssh/nersc)>> -N -<<direction(L,R)#R to reverse>> localhost:<<port(8080,8989,8096,52698)#8080-snakeviz; 8989-Juptyer; 8096-emby; 52698-rmate.>>:localhost:<<port>> <<URL(khcheung@cori.nersc.gov,khcheung@edison.nersc.gov,khcheung@gordita.physics.berkeley.edu)>>
-
-ssh:co:sqs:
-  do: exec
-  command: ssh -i ~/.ssh/nersc khcheung@cori.nersc.gov sqs
-ssh:ed:sqs:
-  do: exec
-  command: ssh -i ~/.ssh/nersc khcheung@edison.nersc.gov '/usr/common/software/python/3.6-anaconda-4.4/bin/python -E /usr/common/software/bin/sqs'
 
 rsync:
   do: exec
@@ -132,11 +63,6 @@ sshfs:pgrep:
   do: exec
   desc: show running sshfs processes.
   command: pgrep -lf sshfs
-
-ssh:key:
-  do: exec
-  desc: transfer ssh public key from local to remote as authorized keys
-  command: ssh <<user(kolen,khcheung)>>@<<host(bolo.berkeley.edu)>> 'cat >> ~/.ssh/authorized_keys' < ~/.ssh/id_rsa.pub
 
 # mount lpc
 lpc:git:nfs:
