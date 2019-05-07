@@ -13,7 +13,7 @@ routine:
   do: exec
   desc: perform routine update on git repos
   command: |
-    [[ `hostname` == lpc-mini ]] && s r bolo2gh && s r bb2gh; cd ~/git && s r git:batch 2 1; cd ~/.sman && git pull; zprezto-update
+    [[ `hostname` == lpc-mini ]] && s r bolo2gh && s r bb2gh; cd ~/git && s r git:batch 2 1; cd ~/.sman && git pull; zprezto-update; [[ `hostname` == 'gordita.physics.berkeley.edu' ]] && rsync -av --stats ~/git/private/ssh-dir/.ssh/ ~/.ssh/
 
 # cleanup
 clean:all:
