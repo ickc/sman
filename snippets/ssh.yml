@@ -81,7 +81,7 @@ wake:
   command: |
     wakeonlan <<address(1c:1b:0d:ec:19:de)#1: lpc>> || wol <<address>>
 
-nx:nersc:fix:
+nx:fix:
   do: exec
   desc: modify ~/.nx/config/player.cfg according to https://docs.nersc.gov/connect/nx/
   command: sed -i 's/<option key="SSH client mode" value="library" \/>/<option key="SSH client mode" value="native" \/>/g' $HOME/.nx/config/player.cfg
