@@ -6,22 +6,18 @@ env:aben:
   command: . abenv.sh <<flags>>
 
 # set PATH
-env:func:py:
-  do: exec
-  desc: prepend PATH and PYTHONPATH in a directory of python library with bin
-  command: export PATH="<<dir>>/bin:$PATH" && export PYTHONPATH="<<dir>>:$PYTHONPATH"
 env:func:bin:
   do: exec
   desc: prepend PATH in a directory with bin
   command: export PATH="<<dir>>/bin:$PATH"
 env:dautil-py:
   do: exec
-  desc: lazy install dautil-py
-  command: if [[ -n $NERSC_HOST ]]; then s r env:func:py "$PBCOMMON/AnalysisBackend/dautil-py"; else s r env:func:py "$HOME/git/source/dautil-py"; fi
+  desc: lazy install dautil-py's bin
+  command: if [[ -n $NERSC_HOST ]]; then s r env:func:bin "$PBCOMMON/AnalysisBackend/dautil-py"; else s r env:func:bin "$HOME/git/source/dautil-py"; fi
 env:abx:
   do: exec
-  desc: lazy install abx
-  command: if [[ -n $NERSC_HOST ]]; then s r env:func:py "$PBCOMMON/AnalysisBackend/AnalysisBackend-Extras-ickc"; else s r env:func:py "$HOME/git/cmb-polarbear_private/AnalysisBackend-Extras-ickc"; fi
+  desc: lazy install abx's bin
+  command: if [[ -n $NERSC_HOST ]]; then s r env:func:bin "$PBCOMMON/AnalysisBackend/AnalysisBackend-Extras-ickc"; else s r env:func:bin "$HOME/git/cmb-polarbear_private/AnalysisBackend-Extras-ickc"; fi
 env:dautil-sh:
   do: exec
   desc: lazy install dautil-sh
@@ -37,32 +33,23 @@ env:pbbin:
 
 # staging ######################################################################
 
-stage:makefile:
-  do: exec
-  desc: make symlink of makefiles from abx to current directory
-  command: for i in common.in makefile null.in full.in nreal_mapsplits.in; do ln -s $HOME/git/cmb-polarbear_private/AnalysisBackend-Extras-ickc/makefile/$i .; done
-
 # on NERSC
-stage:func:
-  do: exec
-  desc: (routine) a general stage function that perform rsync then make
-  command: rsync -avm --delete --stats --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore <<indir>> <<outdir>> && bash -c 'cd <<outdir>> && make'
 stage:dautil-py:
   do: exec
-  desc: (routine) install dautil from git to common on NERSC.
-  command: . abenv.sh -pm cray -b ab2 -n 20190308-ab -v 3 -c intel; s r stage:func "$HOME/git/source/dautil-py/" "$PBCOMMON/AnalysisBackend/dautil-py/"
+  desc: (routine) install dautil-py/bin from git to common on NERSC.
+  command: rsync -avm --delete --stats --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore "$HOME/git/source/dautil-py/bin/" "$PBCOMMON/AnalysisBackend/dautil-py/bin/"
 stage:dautil-sh:
   do: exec
-  desc: (routine) install dautil from git to common on NERSC.
-  command: s r stage:func "$HOME/git/source/dautil-sh/" "$PBCOMMON/AnalysisBackend/dautil-sh/"
+  desc: (routine) install dautil-sh/bin from git to common on NERSC.
+  command: rsync -avm --delete --stats --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore "$HOME/git/source/dautil-sh/bin/" "$PBCOMMON/AnalysisBackend/dautil-sh/bin/"
 stage:abx:
   do: exec
-  desc: (routine) install abx from git to common on NERSC.
-  command: . abenv.sh -pm cray -b ab2 -n 20190308-ab -v 3 -c intel; s r stage:func "$HOME/git/cmb-polarbear_private/AnalysisBackend-Extras-ickc/" "$PBCOMMON/AnalysisBackend/AnalysisBackend-Extras-ickc/"
+  desc: (routine) install abx/bin from git to common on NERSC.
+  command: rsync -avm --delete --stats --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore "$HOME/git/cmb-polarbear_private/AnalysisBackend-Extras-ickc/bin/" "$PBCOMMON/AnalysisBackend/AnalysisBackend-Extras-ickc/bin/"
 stage:ab2:
   do: exec
-  desc: (routine) install ab2 from git to common on NERSC.
-  command: . abenv.sh -pm cray -b ab2 -n 20190308-ab -v 3 -c intel; s r stage:func "$HOME/git/private/ab2/" "$PBCOMMON/AnalysisBackend/ab2/"
+  desc: (routine) install ab2/bin from git to common on NERSC.
+  command: rsync -avm --delete --stats --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore "$HOME/git/private/ab2/bin/" "$PBCOMMON/AnalysisBackend/ab2/bin/"
 
 stage:ab:
   do: exec
@@ -86,7 +73,7 @@ stage:neofetch:
 stage:all:
   do: exec
   desc: (routine) run all stage scripts above
-  command: s r stage:dautil-py; s r stage:dautil-sh; s r stage:abx; s r stage:ab2; s r stage:ab; s r stage:analysis_data; s r stage:ChileData; s r stage:neofetch
+  command: ~/git/cmb-polarbear_private/AnalysisBackend-Extras-ickc/bin/pbstage.sh; s r stage:dautil-py; s r stage:dautil-sh; s r stage:abx; s r stage:ab2; s r stage:ab; s r stage:analysis_data; s r stage:ChileData; s r stage:neofetch
 
 # clone ########################################################################
 
