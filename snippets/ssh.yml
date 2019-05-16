@@ -9,7 +9,7 @@ ssh:nersc:gen:
 ssh:tunnel:
   do: exec
   desc: tunnel a port from client to server.
-  command: ssh <<identity( ,-i ~/.ssh/nersc)>> -N -<<direction(L,R)#R to reverse>> localhost:<<port(8080,8989,8096,52698)#8080-snakeviz; 8989-Juptyer; 8096-emby; 52698-rmate.>>:localhost:<<port>> <<URL(khcheung@cori.nersc.gov,khcheung@edison.nersc.gov,khcheung@gordita.physics.berkeley.edu)>>
+  command: ssh <<identity( ,-i ~/.ssh/nersc)>> -N -<<direction(L,R)#R to reverse>> localhost:<<port(8080,8989,8096,52698)#8080-snakeviz; 8989-Juptyer; 8096-emby; 52698-rmate.>>:localhost:<<port>> <<URL(khcheung@cori.nersc.gov,khcheung@gordita.physics.berkeley.edu)>>
 
 rsync:
   do: exec
@@ -20,12 +20,6 @@ rsync:to:co:
 rsync:fm:co:
   do: exec
   command: rsync -avmz <<DELETE( ,--delete)>> --stats -e 'ssh -i ~/.ssh/nersc' --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore khcheung@cori.nersc.gov:<<inDir>> <<outDir>>
-rsync:to:ed:
-  do: exec
-  command: rsync -avmz <<DELETE( ,--delete)>> --stats -e 'ssh -i ~/.ssh/nersc' --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore <<inDir>> khcheung@edison.nersc.gov:<<outDir>>
-rsync:fm:ed:
-  do: exec
-  command: rsync -avmz <<DELETE( ,--delete)>> --stats -e 'ssh -i ~/.ssh/nersc' --cvs-exclude --exclude='.DS_Store' --exclude .git/ --exclude .gitignore khcheung@edison.nersc.gov:<<inDir>> <<outDir>>
 
 rsync:to:go:
   do: exec
@@ -44,9 +38,6 @@ rsync:fm:
 sshfs:co:
   do: exec
   command: sudo sshfs -o IdentityFile=~/.ssh/nersc,allow_other,defer_permissions,volname=cori khcheung@cori.nersc.gov:/ /mnt/cori/
-sshfs:ed:
-  do: exec
-  command: sudo sshfs -o IdentityFile=~/.ssh/nersc,allow_other,defer_permissions,volname=edison khcheung@edison.nersc.gov:/ /mnt/edison/
 sshfs:go:
   do: exec
   command: sudo sshfs -o IdentityFile=~/.ssh/id_rsa,allow_other,defer_permissions,volname=gordita khcheung@gordita.physics.berkeley.edu:/ /mnt/gordita/
@@ -56,10 +47,10 @@ sshfs:lpc:
 
 sshfs:mkdir:
   do: exec
-  command: sudo mkdir -p /mnt/<<host(cori,edison,gordita,lpc)>>/
+  command: sudo mkdir -p /mnt/<<host(cori,gordita,lpc)>>/
 sshfs:umount:
   do: exec
-  command: sudo umount -f /mnt/<<host(cori,edison,gordita,lpc)>>/
+  command: sudo umount -f /mnt/<<host(cori,gordita,lpc)>>/
 sshfs:kill:
   do: exec
   command: sudo pkill -9 sshfs
