@@ -73,7 +73,7 @@ stage:neofetch:
 stage:all:
   do: exec
   desc: (routine) run all stage scripts above
-  command: ~/git/cmb-polarbear_private/AnalysisBackend-Extras-ickc/bin/pbstage.sh; s r stage:dautil-py; s r stage:dautil-sh; s r stage:abx; s r stage:ab2; s r stage:ab; s r stage:analysis_data; s r stage:ChileData; s r stage:neofetch
+  command: s r stage:dautil-py; s r stage:dautil-sh; s r stage:abx; s r stage:ab2; s r stage:ab; s r stage:analysis_data; s r stage:ChileData; s r stage:neofetch; ~/git/cmb-polarbear_private/AnalysisBackend-Extras-ickc/bin/pbstage.sh
 
 # clone ########################################################################
 
