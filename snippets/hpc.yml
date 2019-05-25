@@ -39,4 +39,4 @@ sbatch:
 otp:
   do: exec
   desc: generate totp
-  command: . activate all3-intel && s r dautil-py && totp.py ~/.nersc.totp
+  command: (. activate all3-intel && s r dautil-py && totp.py ~/.nersc.totp)

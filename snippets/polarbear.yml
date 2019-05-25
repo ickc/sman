@@ -54,7 +54,7 @@ stage:ab2:
 stage:ab:
   do: exec
   desc: (routine) stage AnalysisBackend from git to common on NERSC.
-  command: . abenv.sh -pm cray -b khcheung -n 20190308-ab; s r env:abx && rsync-AnalysisBackend.sh
+  command: (. abenv.sh -pm cray -b khcheung -n 20190308-ab; s r env:abx && rsync-AnalysisBackend.sh)
 
 stage:analysis_data:
   do: exec
