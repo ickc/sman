@@ -34,6 +34,12 @@ env:pbbin:
 # staging ######################################################################
 
 # on NERSC
+
+stage:aben:
+  do: exec
+  desc: stage abenv.sh to common. This should be invoked manually after testing it works.
+  command: rsync -av --stats ~/git/cmb-polarbear_private/AnalysisBackend-Extras-ickc/bin/abenv.sh "$PBCOMMON/local/bin/"
+
 stage:dautil-py:
   do: exec
   desc: (routine) install dautil-py/bin from git to common on NERSC.
