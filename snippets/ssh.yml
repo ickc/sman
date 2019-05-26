@@ -2,6 +2,10 @@ mosh:co:
   do: exec
   desc: convenient command to 1) get NERSC key, 2) find cori login node according to load balancer, 3) mosh to that login node
   command: s r ssh:nersc:gen; mosh $(ssh cori hostname)
+scan:co:
+  do: exec
+  desc: login to all Cori login nodes once to update known_hosts
+  command: s r ssh:nersc:gen; for i in {01..12}; do ssh cori$i 'getconf _NPROCESSORS_ONLN'; done
 ssh:nersc:gen:
   do: exec
   desc: generate NERSC ssh key
