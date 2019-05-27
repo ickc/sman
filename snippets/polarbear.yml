@@ -110,6 +110,10 @@ map:stat:sim:
   desc: Count the number of files with pattern sim(0-9){3}.hdf5.
   command: for num in $(seq -w 000 <<nreal(007)>>); do filename="sim$num.hdf5"; printf "%s\t" "$filename"; find -name "$filename" | wc -l; done
 # coadd
+coadd:stat:sim:
+  do: exec
+  desc: Count the number of files with pattern sim(0-9){3}*.hdf5.
+  command: for num in $(seq -w 000 <<nreal(007)>>); do filename="sim${num}*.hdf5"; printf "%s\t" "$filename"; find -name "$filename" | wc -l; done
 coadd:stat:
   do: exec
   desc: Count no. of coadded files.
