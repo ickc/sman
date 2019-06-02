@@ -147,6 +147,10 @@ fd:make:clean:
   desc: find all makefiles in any sub-directories and run 'make clean'
   #  && make clean && cd -
   command: find . -type f \( -name GNUmakefile -o -name makefile -o -name Makefile \) -exec bash -c 'for makefile do cd "${makefile%/*}"; make -f "${makefile##*/}" clean; cd -; done' bash {} +
+fd:mv:
+  do: exec
+  desc: mv files under current directory into directories named after its extensions
+  command: find -maxdepth 1 -type f -exec bash -c 'dir="${0##*.}"; mkdir -p "$dir"; mv "$0" "$dir"' {} \;
 
 # grep #########################################################################
 gp:
