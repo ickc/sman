@@ -74,3 +74,7 @@ hub:rm:draft:
   do: exec
   desc: remove Draft in GitHub Releases
   command: hub release -f "%T (%S) %n" --include-drafts | grep " (draft)" | awk '{print $1}' | xargs -n1 hub release delete
+git:commit:all:
+  do: exec
+  desc: commit all staged and unstaged changes.
+  command: git add -A && git commit
