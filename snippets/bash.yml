@@ -308,12 +308,12 @@ fd:pandoc:
 ip:public:
   do: exec
   desc: check public IP (even if it is behind another router). See https://www.linuxtrainingacademy.com/determine-public-ip-address-command-line-curl/
+  command: dig +short myip.opendns.com @resolver1.opendns.com
 
 ip:local:
   do: exec
   desc: get all local IP addresses
   command: if [[ $(uname) == Darwin ]]; then (ifconfig | grep inet | grep -v 127.0.0.1 | awk '{print $3}'); else (hostname -I | tr ' ' '\n'); fi
-  command: dig +short myip.opendns.com @resolver1.opendns.com
 
 ip:local:router:
   do: exec
