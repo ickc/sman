@@ -11,21 +11,6 @@ ls:group:
   desc: List group members.
   command: 'getent group | cut -d: -f1'
 
-ip:
-  do: exec
-  desc: get current IP address
-  command: ip route get 1.1.1.1
-
-ip:mac:
-  do: exec
-  desc: get mac address
-  command: ip link show
-
-ip:local:ss:
-  do: exec
-  desc: show local ip address using ss
-  command: ss -au
-
 lidswitch:ignore:
   do: exec
   desc: ignore lid-switch, e.g. on laptop.

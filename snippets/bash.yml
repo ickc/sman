@@ -269,18 +269,6 @@ smb:reload:
   do: exec
   desc: reload samba conf
   command: sudo smbcontrol all reload-config
-ip:router:
-  do: exec
-  desc: show the IP address of router
-  command: netstat -nr | grep default
-ip:local:
-  do: exec
-  desc: show local IP address
-  command: ifconfig |grep inet
-ip:public:
-  do: exec
-  desc: check public IP (even if it is behind another router)
-  command: curl https://ipinfo.io/ip
 
 # disks
 badblocks:
@@ -314,3 +302,35 @@ fd:pandoc:
   do: exec
   desc: find and run pandoc
   command: find -name '<<pattern>>' -exec bash -c 'pandoc -s -o "${0%.*}.<<ext>>" "$0" <<args>>' {} \;
+
+# IP related
+
+ip:public:
+  do: exec
+  desc: check public IP (even if it is behind another router). See https://www.linuxtrainingacademy.com/determine-public-ip-address-command-line-curl/
+
+ip:local:
+  do: exec
+  desc: get all local IP addresses
+  command: if [[ $(uname) == Darwin ]]; then (ifconfig | grep inet | grep -v 127.0.0.1 | awk '{print $3}'); else (hostname -I | tr ' ' '\n'); fi
+  command: dig +short myip.opendns.com @resolver1.opendns.com
+
+ip:local:router:
+  do: exec
+  desc: get local IP address to router
+  command: if [[ $(uname) == Darwin ]]; then hostname -i; else (ip route get 1.1.1.1 | grep 1.1.1.1 | awk '{print $7}'); fi
+
+ip:router:
+  do: exec
+  desc: get router IP address
+  command: if [[ $(uname) == Darwin ]]; then (route -n get default | grep gateway | awk '{print $2}'); else (ip r | grep default | awk '{print $3}'); fi
+
+ip:network:
+  do: exec
+  desc: get all networks connected to. e.g. 192.168.1.0/24
+  command: if [[ $(uname) == Darwin ]]; then (netstat -nr | awk '{print $1}' | grep -E '^[0-9a-f:.]+/[0-9]+$' | sort -u); else (ip r | grep -v default | awk '{print $1}'); fi
+
+ip:mac:
+  do: exec
+  desc: get mac address
+  command: if [[ $(uname) == Darwin ]]; then networksetup -listallhardwareports; else ip link show; fi
