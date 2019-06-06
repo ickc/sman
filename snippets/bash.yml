@@ -309,3 +309,8 @@ redirect:
   desc: redirect stdout, stderr seperately while also print to terminal
   command: |
     {{<<command>> <<outfile>>} > >(tee <<outfile>>.out)} 2> >(tee <<outfile>>.err)
+
+fd:pandoc:
+  do: exec
+  desc: find and run pandoc
+  command: find -name '<<pattern>>' -exec bash -c 'pandoc -s -o "${0%.*}.<<ext>>" "$0" <<args>>' {} \;
