@@ -334,3 +334,8 @@ ip:mac:
   do: exec
   desc: get mac address
   command: if [[ $(uname) == Darwin ]]; then networksetup -listallhardwareports; else ip link show; fi
+
+pdfimages:
+  do: exec
+  desc: extract original images from PDF
+  command: pdfimages -all -p <<input>> <<outputPrefix>>
