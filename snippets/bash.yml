@@ -339,3 +339,8 @@ pdfimages:
   do: exec
   desc: extract original images from PDF
   command: pdfimages -all -p <<input>> <<outputPrefix>>
+
+server:
+  do: exec
+  desc: serve current directory
+  command: python3 -m http.server <<port>>
