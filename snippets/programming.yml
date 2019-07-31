@@ -57,3 +57,8 @@ tex:doc:
   do: exec
   desc: cd to TeXLive's documentation directory
   command: cd /usr/local/texlive/*/texmf-dist/doc/
+
+ipy:ex:
+  do: exec
+  desc: execute Jupyter Notebook
+  command: jupyter-nbconvert --ExecutePreprocessor.timeout=1800000 --execute <<filename>>
