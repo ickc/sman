@@ -25,6 +25,10 @@ conda:batch:rm:
   do: exec
   desc: remove all conda environments
   command: conda info --env | grep -v -E '#|root' - | cut -d' ' -f1 | xargs -i -n1 -P1 bash -c 'conda remove -n $0 --all -y' {}
+conda:batch:rm:inteldefaults:
+  do: exec
+  desc: remove all intel/defaults environments
+  command: conda info --env | grep -v -E '#|root' - | grep -E '(defaults|intel)' - | cut -d' ' -f1 | xargs -i -n1 -P1 bash -c 'conda remove -n $0 --all -y' {}
 conda:ch:
   do: exec
   desc: set a highest priority channel
