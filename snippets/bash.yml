@@ -308,12 +308,12 @@ fd:pandoc:
 ip:public:
   do: exec
   desc: check public IP (even if it is behind another router). See https://www.linuxtrainingacademy.com/determine-public-ip-address-command-line-curl/
-  command: dig +short myip.opendns.com @resolver1.opendns.com
+  command: curl http://checkip.amazonaws.com
 
 ip:local:
   do: exec
   desc: get all local IP addresses
-  command: if [[ $(uname) == Darwin ]]; then (ifconfig | grep inet | grep -v 127.0.0.1 | awk '{print $3}'); else (hostname -I | tr ' ' '\n'); fi
+  command: python3 -c 'import socket, psutil; [print(interface.ljust(10), snic.address.rjust(15)) for interface, snics in psutil.net_if_addrs().items() for snic in snics if snic.family == socket.AF_INET]'
 
 ip:local:router:
   do: exec
