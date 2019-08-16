@@ -330,6 +330,11 @@ ip:network:
   desc: get all networks connected to. e.g. 192.168.1.0/24
   command: if [[ $(uname) == Darwin ]]; then (netstat -nr | awk '{print $1}' | grep -E '^[0-9a-f:.]+/[0-9]+$' | sort -u); else (ip r | grep -v default | awk '{print $1}'); fi
 
+ip:list:network:
+  do: exec
+  desc: 'list all IP within a connected network. Hint: use ip:network to find out the network first.'
+  command: sudo nmap -sn <<network>>
+
 ip:mac:
   do: exec
   desc: get mac address
