@@ -20,3 +20,8 @@ clean:all:
   do: exec
   desc: clean all common auxiliary files
   command: s r dss 2; s r conflict 2; s r ipycp; s r fd:rm:py:aux
+
+pandoc:cleanup:md:
+  do: exec
+  desc: cleanup markdown files using pandoc
+  command: pandoc -s -o '<<filename>>' '<<filename>>' -f markdown+abbreviations+autolink_bare_uris+markdown_attribute+mmd_header_identifiers+mmd_link_attributes+mmd_title_block+tex_math_double_backslash-latex_macros -t markdown+raw_tex-native_spans-simple_tables-multiline_tables-grid_tables-latex_macros -s --wrap=none --column=999 --atx-headers --reference-location=block --file-scope
