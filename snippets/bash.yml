@@ -286,7 +286,7 @@ info:hdparm:
 path:print:
   do: exec
   desc: pretty-print PATH
-  command: echo $PATH | tr ':' '\n'
+  command: echo $<<var(PATH,LD_LIBRARY_PATH)>> | tr ':' '\n'
 path:stat:
   do: exec
   desc: print stat of PATH, useful for inspecting duplicated paths
