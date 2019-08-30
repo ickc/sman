@@ -62,3 +62,9 @@ ipy:ex:
   do: exec
   desc: execute Jupyter Notebook
   command: jupyter-nbconvert --ExecutePreprocessor.timeout=1800000 --execute <<filename>>
+
+# open Jupyter
+jp:st:
+  do: exec
+  desc: start Jupyter
+  command: '"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --app=<<address(http://172.22.2.7:8000,http://lpc-mini.dyn.berkeley.edu:8000,https://jupyter.nersc.gov/user/khcheung/cori-shared-node-cpu/lab)#1: lpc, 2: lpc-local, 3: NERSC>>'
