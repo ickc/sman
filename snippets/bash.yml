@@ -308,7 +308,7 @@ fd:pandoc:
 ip:public:
   do: exec
   desc: check public IP (even if it is behind another router). See https://www.linuxtrainingacademy.com/determine-public-ip-address-command-line-curl/
-  command: curl http://checkip.amazonaws.com
+  command: curl <<url(ipecho.net/plain,http://checkip.amazonaws.com)>>
 
 ip:local:
   do: exec
