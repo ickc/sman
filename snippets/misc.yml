@@ -25,3 +25,8 @@ pandoc:cleanup:md:
   do: exec
   desc: cleanup markdown files using pandoc
   command: pandoc -s -o '<<filename>>' '<<filename>>' -f markdown+abbreviations+autolink_bare_uris+markdown_attribute+mmd_header_identifiers+mmd_link_attributes+mmd_title_block+tex_math_double_backslash-latex_macros -t markdown+raw_tex-native_spans-simple_tables-multiline_tables-grid_tables-latex_macros -s --wrap=none --column=999 --atx-headers --reference-location=block --file-scope
+
+minify:
+  do: exec
+  desc: minify (written in go)
+  command: minify --html-keep-document-tags --html-keep-end-tags --type=html -o <<filename>> <<filename>>
