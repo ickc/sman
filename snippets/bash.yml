@@ -349,3 +349,18 @@ server:
   do: exec
   desc: serve current directory
   command: python3 -m http.server <<port>>
+
+# iperf test network
+iperf:s:
+  do: exec
+  desc: testing network performance. Start iperf server listening...
+  command: iperf3 -s
+iperf:c:
+  do: exec
+  desc: testing network performance. Start iperf server listening...
+  command: iperf3 -c <<ip>> -l <<size(64,128,256)>>K -w <<size>>K
+
+bit:
+  do: exec
+  desc: show OS 64bit or 32bit
+  command: getconf LONG_BIT
