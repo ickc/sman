@@ -84,3 +84,9 @@ nx:fix:
   do: exec
   desc: modify ~/.nx/config/player.cfg according to https://docs.nersc.gov/connect/nx/
   command: sed -i 's/<option key="SSH client mode" value="library" \/>/<option key="SSH client mode" value="native" \/>/g' $HOME/.nx/config/player.cfg
+
+# sshuttle
+sshuttle:
+  do: exec
+  desc: sshuttle as vpn
+  command: sshuttle -r <<address(lpc,khcheung@bolowiki)>> 0/0
