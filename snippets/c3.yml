@@ -1,0 +1,5 @@
+# toast
+toast:test:
+  do: exec
+  desc: run toast test
+  command: python -c 'from toast.tests import run; run()'
