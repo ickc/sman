@@ -2,4 +2,4 @@
 toast:test:
   do: exec
   desc: run toast test
-  command: python -c 'from toast.tests import run; run()'
+  command: python -c 'import toast.tests.run as r; r()'
