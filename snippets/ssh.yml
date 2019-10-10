@@ -9,7 +9,7 @@ scan:co:
 ssh:nersc:gen:
   do: exec
   desc: generate NERSC ssh key
-  command: (. activate all3-intel && s r dautil-py && ~/git/fork/NERSC-MFA/sshproxy.sh -u khcheung)
+  command: (. activate all3-defaults && s r dautil-py && ~/git/fork/NERSC-MFA/sshproxy.sh -u khcheung)
 ssh:tunnel:
   do: exec
   desc: tunnel a port from client to server.

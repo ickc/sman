@@ -72,3 +72,8 @@ jp:st:lo:
   do: exec
   desc: start Jupyter by running a local server
   command: . activate jupyterlab && cd && jupyter lab --NotebookApp.iopub_data_rate_limit=10000000000
+
+pandoc:rst:
+  do: exec
+  desc: find all rst within current directory and build using pandoc. Ordering is random. Useful to build documentations with "hidden" files not included in their Sphinx build.
+  command: find \( -name '*.txt' -o -name '*.rst' \) -exec pandoc -s -f rst -o <<filename>> {} +
