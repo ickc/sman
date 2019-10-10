@@ -132,3 +132,8 @@ code:ls:
   do: exec
   desc: list vscode installed extensions
   command: code --list-extensions 2>/dev/null
+
+xcode:
+  do: exec
+  desc: install xcode command line tools.
+  command: xcode-select --install && sudo xcodebuild -license accept
