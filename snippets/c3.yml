@@ -2,4 +2,4 @@
 toast:test:
   do: exec
   desc: run toast test
-  command: python -c 'from toast.tests import run; run()'
+  command: mkdir $SCRATCH/toast_test_output; cd $SCRATCH; script -c 'command time -v python -c "from toast.tests import run; run()"' toast_test_output/log.txt
