@@ -142,3 +142,8 @@ xcode:
   do: exec
   desc: install xcode command line tools.
   command: xcode-select --install && sudo xcodebuild -license accept
+
+port:update:
+  do: exec
+  desc: update macport
+  command: sudo port selfupdate && sudo port upgrade outdated
