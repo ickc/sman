@@ -79,7 +79,7 @@ curl:upload:
 ### Run snippet
 
 ```bash
-s run [-f <FILE>]  [-t <TAG>] <SNIPPET> [placeholder values...] [-cxp]
+s run [-f <FILE>]  [-t <TAG>] <SNIPPET> [placeholder values...] [-cxyp]
 ```
 ```bash
 ~|⇒ s run -f shell curl:upload test.tar.gz -x
@@ -110,6 +110,23 @@ s ls [-f <FILE>] [-t <TAG>] [<PATTERN>]
 
 * Pattern is matched against snippet name, command and description
 
+### List and search snippets for scripts
+
+* Use the `--porcelain` flag to produce machine-readable output for scripting.
+
+```bash
+$ s ls service:disable --porcelain
+shell	service:disable	ubuntu	disable service on ubuntu
+
+$ s ls add --porcelain | cut -f 2 | xargs echo
+vhost:add user:add alias:add sshconfig:add user:group
+```
+
+* The output is `\t`-separated. The colums are:
+ 1. Snippet file
+ 2. Snippet name
+ 3. Tags (`,`-separated)
+ 4. Description
 
 ## Fuzzy search file and snippet name:
 ```bash
@@ -131,6 +148,8 @@ export SMAN_APPEND_HISTORY=false
 export SMAN_SNIPPET_DIR="~/snippets"
 # Ask confirmation before executing
 export SMAN_EXEC_CONFIRM=true
+# Set shell color of groups in ls, see https://misc.flogisoft.com/bash/tip_colors_and_formatting
+export SMAN_LS_COLOR_FILES=1,4,35
 ```
 
 ## vim-sman

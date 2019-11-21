@@ -2,12 +2,17 @@ package sman
 
 import (
 	"fmt"
-	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 	"os"
 	"regexp"
 	"sort"
 	"text/tabwriter"
+	"io"
+	"strings"
+)
+
+var (
+	porcelainFlag bool
 )
 
 func filterSnippets(p string, slice SnippetSlice) (matched SnippetSlice) {
@@ -26,15 +31,23 @@ func filterSnippets(p string, slice SnippetSlice) (matched SnippetSlice) {
 func doLs(pattern string) {
 	c := getConfig()
 	snippets := getSnippets(pattern, fileFlag, c.SnippetDir, tagFlag)
-	w := new(tabwriter.Writer)
-	w.Init(os.Stdout, 25, 2, 0, ' ', 0)
 	snippets = filterSnippets(pattern, snippets)
 	sort.Sort(snippets)
+	if porcelainFlag {
+		doLsPorcelain(snippets)
+	} else {
+		doLsSlice(snippets, os.Stdout)
+	}
+}
+
+func doLsSlice(snippets SnippetSlice, output io.Writer) {
+	c := getConfig()
+	w := new(tabwriter.Writer)
+	w.Init(output, 25, 2, 0, ' ', 0)
 	var prevFile string
-	blue := color.New(color.FgBlue).SprintFunc()
 	for _, s := range snippets {
 		if s.File != prevFile {
-			fmt.Fprintln(w, blue(s.File+":"))
+			fmt.Fprintln(w, c.LsFilesColor.SprintFunc()(s.File+":"))
 			prevFile = s.File
 		}
 		line := fmt.Sprintf("   %v\t[%v]\t%v", s.Name, displaySlice(s.Tags),
@@ -43,6 +56,12 @@ func doLs(pattern string) {
 	}
 	err := w.Flush()
 	checkError(err, "Flush error..")
+}
+
+func doLsPorcelain(snippets SnippetSlice) {
+	for _, s := range snippets {
+		fmt.Fprintln(os.Stdout, fmt.Sprintf("%v\t%v\t%v\t%v", s.File, s.Name, strings.Join(s.Tags, ","), s.Desc))
+	}
 }
 
 // lsCmd represents the ls command
@@ -72,4 +91,5 @@ s ls -f docker
 
 func init() {
 	RootCmd.AddCommand(lsCmd)
+	lsCmd.Flags().BoolVarP(&porcelainFlag, "porcelain", "", false, "produce machine-readable output")
 }
