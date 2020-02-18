@@ -87,6 +87,7 @@ case "$archi" in
    Linux\ x86_64)  download "sman-linux-amd64-$version"  ;;
    Linux\ i*86)    download "sman-linux-386-$version"    ;;
    Linux\ arm*)    download "sman-linux-arm-$version"    ;;
+   Linux\ aarch64) download "sman-linux-aarch64-$version";;
    FreeBSD\ amd64) download "sman-freebsd-amd64-$version";;
   *)              binary_available=0 binary_error=1  ;;
 esac
