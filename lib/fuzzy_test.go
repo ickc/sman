@@ -1,9 +1,10 @@
 package sman
 
 import (
-	"github.com/renstrom/fuzzysearch/fuzzy"
 	"reflect"
 	"testing"
+
+	"github.com/renstrom/fuzzysearch/fuzzy"
 )
 
 func TestTopsFromRanks(t *testing.T) {
@@ -17,11 +18,11 @@ func TestTopsFromRanks(t *testing.T) {
 			[]string(nil),
 		},
 		{"single matched",
-			fuzzy.Ranks{{"fir", "first", 3}, {"fir", "second", 8}},
+			fuzzy.Ranks{{"fir", "first", 3, 0}, {"fir", "second", 8, 1}},
 			[]string{"first"},
 		},
 		{"multiple matched",
-			fuzzy.Ranks{{"fir", "first", 3}, {"fir", "second", 3}, {"fir", "invalid", 8}},
+			fuzzy.Ranks{{"fir", "first", 3, 0}, {"fir", "second", 3, 1}, {"fir", "invalid", 8, 2}},
 			[]string{"first", "second"},
 		},
 	}
