@@ -2,7 +2,13 @@
 
 '''generate all combinations of supported GOOS and GOARCH
 
-hint: run $(./make.py)
+hint: run
+
+$(./make.py)
+
+or using parallel
+
+./make.py | parallel -j 10
 '''
 
 import pandas as pd
