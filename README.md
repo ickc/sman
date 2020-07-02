@@ -1,5 +1,5 @@
 # Sman
-[![Build Status](https://travis-ci.org/ickc/sman.svg?branch=master)](https://travis-ci.org/ickc/sman)
+[![Build Status](https://travis-ci.com/ickc/sman.svg?branch=master)](https://travis-ci.com/ickc/sman)
 
 ***
 A command-line snippet manager in Go
