@@ -1,3 +1,5 @@
+SHELL = /usr/bin/env bash
+
 VERSION = $(shell awk -F= '/version =/ {print $$2}' lib/root.go | tr -d "\" ")
 
 test:
@@ -13,3 +15,6 @@ build:
 	rm bin/sman-${GOOS}-${GOARCH}-v${VERSION}
 
 .PHONY: all build test
+
+print-%:
+	$(info $* = $($*))
