@@ -84,6 +84,7 @@ binary_available=1
 binary_error=""
 case "$archi" in
    Darwin\ x86_64) download "sman-darwin-amd64-$version" ;;
+   Darwin\ arm64)  download "sman-darwin-amd64-$version" ;;  # TODO
    Linux\ x86_64)  download "sman-linux-amd64-$version"  ;;
    Linux\ i*86)    download "sman-linux-386-$version"    ;;
    Linux\ arm*)    download "sman-linux-arm-$version"    ;;
