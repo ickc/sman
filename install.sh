@@ -16,22 +16,22 @@ download(){
     [[ -d ~/.local/bin ]] || mkdir ~/.local/bin
     cd ~/.local/bin
     local url=https://github.com/ickc/sman/releases/download/$version/${1}.tgz
-    echo $url
+    echo "$url"
     if command -v curl > /dev/null; then
-        curl -fL $url | tar -xz
+        curl -fL "$url" | tar -xz
     elif command -v wget > /dev/null; then
-        wget -O - $url | tar -xz
+        wget -O - "$url" | tar -xz
     else
         binary_error="curl or wget not found"
         return
     fi
 
-    if [ ! -f $1 ]; then
+    if [ ! -f "$1" ]; then
         binary_error="Failed to download ${url}"
         return
     fi
 
-    mv ${1} sman
+    mv "$1" sman
     chmod +x sman
 }
 
@@ -108,8 +108,8 @@ has_zsh=$(command -v zsh > /dev/null && echo 1 || echo 0)
 shells=$([[ $has_zsh -eq 1 ]] && echo "bash zsh" || echo "bash")
 for shell in $shells; do
     [[ $shell = zsh ]] && dest=${ZDOTDIR:-~}/.zshrc || dest=~/.bashrc
-    append_line $update_config "[[ -f ~/.sman/sman.rc ]] && source ~/.sman/sman.rc" "$dest" "~/.sman/sman.rc"
-    append_line $update_config 'export SMAN_SNIPPET_DIR=~/.sman/snippets' "$dest" "~/.sman/snippets"
+    append_line $update_config "[[ -f ~/.sman/sman.rc ]] && source ~/.sman/sman.rc" "$dest" "$HOME/.sman/sman.rc"
+    append_line $update_config 'export SMAN_SNIPPET_DIR=~/.sman/snippets' "$dest" "$HOME/.sman/snippets"
 done
 
 echo "Done. Logout or reload your rc"
