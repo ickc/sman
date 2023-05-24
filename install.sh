@@ -83,14 +83,17 @@ archi=$(uname -sm)
 binary_available=1
 binary_error=""
 case "$archi" in
-   Darwin\ x86_64) download "sman-darwin-amd64-$version" ;;
-   Darwin\ arm64)  download "sman-darwin-amd64-$version" ;;  # TODO
-   Linux\ x86_64)  download "sman-linux-amd64-$version"  ;;
-   Linux\ i*86)    download "sman-linux-386-$version"    ;;
-   Linux\ arm*)    download "sman-linux-arm-$version"    ;;
-   Linux\ aarch64) download "sman-linux-arm64-$version"  ;;
-   FreeBSD\ amd64) download "sman-freebsd-amd64-$version";;
-  *)              binary_available=0 binary_error=1  ;;
+   Darwin\ x86_64) download "sman-darwin-amd64-$version"  ;;
+   Darwin\ arm64)  download "sman-darwin-amd64-$version"  ;;  # TODO
+   Linux\ x86_64)  download "sman-linux-amd64-$version"   ;;
+   Linux\ i*86)    download "sman-linux-386-$version"     ;;
+   Linux\ arm*)    download "sman-linux-arm-$version"     ;;
+   Linux\ aarch64) download "sman-linux-arm64-$version"   ;;
+   Linux\ ppc64)   download "sman-linux-ppc64-$version"   ;;
+   Linux\ ppc64le) download "sman-linux-ppc64le-$version" ;;
+   FreeBSD\ i386)  download "sman-freebsd-386-$version"   ;;
+   FreeBSD\ amd64) download "sman-freebsd-amd64-$version" ;;
+  *)               binary_available=0 binary_error=1      ;;
 esac
 
 if [[ -n "$binary_error" ]]; then
