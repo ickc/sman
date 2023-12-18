@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/renstrom/fuzzysearch/fuzzy"
+	"github.com/lithammer/fuzzysearch/fuzzy"
 )
 
 func TestTopsFromRanks(t *testing.T) {

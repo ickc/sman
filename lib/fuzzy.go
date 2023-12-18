@@ -1,7 +1,7 @@
 package sman
 
 import (
-	"github.com/renstrom/fuzzysearch/fuzzy"
+	"github.com/lithammer/fuzzysearch/fuzzy"
 	"sort"
 )
 
