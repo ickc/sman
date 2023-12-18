@@ -67,4 +67,10 @@ jobs:
       run: |
         echo "GOOS=$(echo ${{ matrix.platform }} | cut -d/ -f1)" >> $GITHUB_ENV
         echo "GOARCH=$(echo ${{ matrix.platform }} | cut -d/ -f2)" >> $GITHUB_ENV
-    - run: go build
+    - run: make build
+    - name: Deploy to GitHub Releases
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: |
+          bin/sman-*.tgz
