@@ -73,4 +73,4 @@ jobs:
       if: startsWith(github.ref, 'refs/tags/')
       with:
         files: |
-          bin/sman-*.tgz
+          dist/sman-*.tgz
