@@ -2,7 +2,7 @@
 
 #code from junegunn/fzf
 
-version="v1.0.1"
+version="v1.0.2"
 
 download(){
     if [[ ! -d ~/.sman/ ]]; then
