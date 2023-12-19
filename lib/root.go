@@ -13,7 +13,7 @@ var (
 )
 
 const (
-	version = "1.0.2"
+	version = "1.0.3"
 )
 
 //RootCmd for cobra
