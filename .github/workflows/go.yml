@@ -10,10 +10,10 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - "1.21"
+          - "1.22"
     steps:
     - uses: actions/checkout@v4
-    - uses: actions/setup-go@v4
+    - uses: actions/setup-go@v5
       with:
         go-version: ${{ matrix.version }}
     - run: make all
